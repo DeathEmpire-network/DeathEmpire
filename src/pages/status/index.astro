@@ -1,1 +1,69 @@
-﻿
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Estado del Proyecto';
+const description = 'Auditoría técnica, suites de tests y seguimiento de Critical Gaps de DeathEmpire.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header>
+      <h1>Estado del Proyecto DeathEmpire</h1>
+      <p>Auditoría técnica de componentes, suites de tests e integración distribuida.</p>
+    </header>
+
+    <section>
+      <h2>Métricas y Verificaciones</h2>
+      <div class="grid grid-2" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header">
+            <h3>Backend gRPC</h3>
+          </div>
+          <div class="card-body">
+            <p><strong>63/63 tests superados</strong> (100% passing). API gRPC operativa, base de datos PostgreSQL configurada y pipeline de autenticación activo.</p>
+            <span class="status-badge status-completed">Tests OK</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>Folia-Fork</h3>
+          </div>
+          <div class="card-body">
+            <p>Builds y tests automáticos operativos. Servidor regionalizado basado en PaperMC/Folia con extensiones gRPC personalizadas. Upstream 26.2.x en PR.</p>
+            <span class="status-badge status-in-progress">PR en curso</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>Velocity-Fork</h3>
+          </div>
+          <div class="card-body">
+            <p>Proxy distribuido con Instance Registry y balanceo. Integración gRPC con el Backend en fase de desarrollo.</p>
+            <span class="status-badge status-dev">En Desarrollo</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>Global-Tracker</h3>
+          </div>
+          <div class="card-body">
+            <p>Coordinación central del ecosistema, gestión de releases y gobernanza de dependencias y arquitectura documental.</p>
+            <span class="status-badge status-completed">Activo</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Seguimiento de Critical Gaps</h2>
+      <p>Actualmente se encuentran documentados <strong>8 Critical Gaps</strong> en la arquitectura técnica, orientados a la sincronización de estado regional y la validación end-to-end.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+    </footer>
+  </article>
+</BaseLayout>
