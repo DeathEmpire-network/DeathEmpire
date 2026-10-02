@@ -6,60 +6,215 @@ const description = 'Ecosistema de Minecraft persistente que combina narrativa d
 ---
 
 <BaseLayout title={title} description={description}>
-  <article>
+  <article class="home-portal">
+    <!-- Hero Section -->
     <header class="hero">
-      <h1>DeathEmpire</h1>
-      <p class="tagline">Un ecosistema de Minecraft persistente que combina narrativa de fantasía oscura, arquitectura distribuida y gameplay emergente.</p>
+      <div class="hero-eyebrow">
+        <span class="hero-badge">
+          <span class="badge-icon" aria-hidden="true">✦</span>
+          <span>ARCHIVO CANÓNICO</span>
+          <span class="badge-sep" aria-hidden="true">·</span>
+          <span>ECOSISTEMA MINECRAFT DISTRIBUIDO</span>
+        </span>
+      </div>
+
+      <h1 class="hero-title">DEATHEMPIRE</h1>
+
+      <div class="hero-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-emblem">⚔</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <p class="hero-tagline">
+        Un ecosistema persistente de Minecraft que combina narrativa de fantasía oscura, arquitectura distribuida de microservicios y gameplay emergente.
+      </p>
+
       <div class="hero-cta">
-        <a href="/DeathEmpire/lore" class="btn btn-primary btn-lg">Explorar Lore</a>
-        <a href="/DeathEmpire/gameplay" class="btn btn-secondary btn-lg">Ver Gameplay</a>
+        <a href="/DeathEmpire/lore/" class="btn btn-primary btn-lg">Explorar Lore</a>
+        <a href="/DeathEmpire/gameplay/" class="btn btn-secondary btn-lg">Ver Gameplay</a>
+      </div>
+
+      <!-- Métricas / Estado del mundo -->
+      <div class="hero-metrics" role="region" aria-label="Métricas del ecosistema">
+        <div class="metric-item">
+          <span class="metric-value">5</span>
+          <span class="metric-label">capítulos canónicos</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="metric-value">7</span>
+          <span class="metric-label">facciones documentadas</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="status-badge status-in-progress">Desarrollo Activo</span>
+          <span class="metric-label">estado del mundo</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="metric-value">63/63</span>
+          <span class="metric-label">tests backend</span>
+        </div>
       </div>
     </header>
 
-    <section class="features-grid">
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/lore">Lore y Capítulos</a></h2>
-        <p>Cinco capítulos canónicos: La Era del Esplendor, El Despertar del Maná, El Cielo que Cayó, Las Bestias del Espacio, El Hijo del Invocador. Más <strong>LORE_CANON.md</strong> como documento normativo.</p>
-      </article>
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/world">Mundo y Facciones</a></h2>
-        <p><strong>7 facciones documentadas</strong>: Inquisición del Maná, Cazadores Estelares, Legiones Remanentes, Culto del Maná Salvaje, Gremio de Artesanos, Supervivientes Libres, Enjambre de las Bestias.</p>
-      </article>
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/gameplay">Gameplay</a></h2>
-        <p>Clases (Guerrero, Pícaro, Mago, Clérigo, Especialista), atributos canónicos (STR, STA, AGI, INT, DEX), crafting, economía, equipamiento y progresión.</p>
-      </article>
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/architecture">Arquitectura</a></h2>
-        <p>Global-Tracker, Backend (gRPC, PostgreSQL), Folia-Fork, Velocity-Fork, Instance Registry, Heartbeat. Integración end-to-end pendiente.</p>
-      </article>
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/status">Estado del Proyecto</a></h2>
-        <p>Backend 63/63 tests, Folia build/tests OK, Velocity integración pendiente. <strong>8 Critical Gaps</strong> documentados. Folia upstream 26.2.x en PR.</p>
-      </article>
-      <article class="feature-card">
-        <h2><a href="/DeathEmpire/roadmap">Roadmap</a></h2>
-        <p>Fases: Fundación, Core Gameplay, Economía, Mundo, Pulido. Features rastreadas en FEATURE_REGISTRY con estados DISEÑADO/PROTOTIPADO/IMPLEMENTADO/VALIDADO.</p>
-      </article>
+    <!-- Secciones Principales en Tarjetas (7 Módulos Canónicos) -->
+    <section class="cards-section" aria-labelledby="cards-section-heading">
+      <div class="section-header">
+        <span class="section-eyebrow">SECCIONES PRINCIPALES</span>
+        <h2 id="cards-section-heading">Compendio del Archivo</h2>
+        <p class="section-subline">Acceso directo a la narrativa canónica, sistemas de juego y especificación técnica de la infraestructura.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- 1. Lore y Capítulos -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Narrativa</span>
+            <span class="card-meta">5 Capítulos</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/lore/" class="card-link">Lore y Capítulos</a>
+          </h3>
+          <p class="card-description">
+            Cinco capítulos canónicos: La Era del Esplendor, El Despertar del Maná, El Cielo que Cayó, Las Bestias del Espacio y El Hijo del Invocador. Normado por <code>LORE_CANON.md</code>.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Explorar lore</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 2. Mundo y Facciones -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Mundo</span>
+            <span class="card-meta">7 Facciones</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/world/" class="card-link">Mundo y Facciones</a>
+          </h3>
+          <p class="card-description">
+            <strong>7 facciones documentadas</strong>: Inquisición del Maná, Cazadores Estelares, Legiones Remanentes, Culto del Maná Salvaje, Gremio de Artesanos, Supervivientes Libres y Enjambre de las Bestias.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Conocer el mundo</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 3. Gameplay -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Mecánicas</span>
+            <span class="card-meta">5 Clases & Stats</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/gameplay/" class="card-link">Gameplay</a>
+          </h3>
+          <p class="card-description">
+            Clases (Guerrero, Pícaro, Mago, Clérigo, Especialista), atributos canónicos (STR, STA, AGI, INT, DEX), crafting en 4 fases, economía regional, equipamiento y progresión.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Ver gameplay</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 4. Arquitectura -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Infraestructura</span>
+            <span class="card-meta">gRPC & Folia</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/architecture/" class="card-link">Arquitectura</a>
+          </h3>
+          <p class="card-description">
+            Global-Tracker, Backend (gRPC, PostgreSQL), Folia-Fork, Velocity-Fork, Instance Registry y Heartbeat. Integración end-to-end orientada a microservicios distribuidos.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Examinar arquitectura</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 5. Estado del Proyecto -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Auditoría</span>
+            <span class="card-meta">8 Critical Gaps</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/status/" class="card-link">Estado del Proyecto</a>
+          </h3>
+          <p class="card-description">
+            Backend 63/63 tests superados, Folia build/tests OK, Velocity integración pendiente. <strong>8 Critical Gaps</strong> documentados bajo resolución activa.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Consultar estado</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 6. Roadmap -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Planificación</span>
+            <span class="card-meta">Fases & Features</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/roadmap/" class="card-link">Roadmap</a>
+          </h3>
+          <p class="card-description">
+            Fases evolutivas: Fundación, Core Gameplay, Economía, Mundo, Pulido. Trazabilidad canónica en <code>FEATURE_REGISTRY</code> con estados rigurosos.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Revisar roadmap</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 7. Repositorios del Ecosistema -->
+        <article class="portal-card portal-card-wide">
+          <div class="card-eyebrow">
+            <span class="card-tag">Ecosistema Git</span>
+            <span class="card-meta">repos.yaml (Fuente de verdad)</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/repositories/" class="card-link">Repositorios del Ecosistema</a>
+          </h3>
+          <p class="card-description">
+            Seis repositorios canónicos coordinados: <strong>Global-Tracker</strong> (orquestación), <strong>DeathEmpire</strong> (sitio público), <strong>Actions</strong> (CI/CD privado), <strong>Backend</strong> (gRPC), <strong>Folia-Fork</strong> (servidor regionalizado) y <strong>Velocity-Fork</strong> (proxy).
+          </p>
+          <div class="repo-tags-preview" aria-hidden="true">
+            <span class="repo-tag">Global-Tracker</span>
+            <span class="repo-tag">DeathEmpire</span>
+            <span class="repo-tag">Actions</span>
+            <span class="repo-tag">Backend</span>
+            <span class="repo-tag">Folia-Fork</span>
+            <span class="repo-tag">Velocity-Fork</span>
+          </div>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Explorar repositorios</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="repos-section">
-      <h2>Repositorios del Ecosistema</h2>
-      <p>Definidos en <code>repos.yaml</code> (fuente de verdad única):</p>
-      <ul class="repo-list">
-        <li><strong>Global-Tracker</strong> — Coordinación, releases, arquitectura</li>
-        <li><strong>DeathEmpire</strong> — Sitio público (este repo)</li>
-        <li><strong>Actions</strong> — CI/CD privado y pruebas efímeras</li>
-        <li><strong>Backend</strong> — gRPC API, orquestación, auth</li>
-        <li><strong>Folia-Fork</strong> — Servidor regionalizado (upstream PaperMC/Folia)</li>
-        <li><strong>Velocity-Fork</strong> — Proxy con Instance Registry (upstream PaperMC/Velocity)</li>
-      </ul>
-      <p class="note">Plugins planificados: <code>deathempire-core</code>, <code>deathempire-economy</code>, <code>deathempire-worldgen</code>, <code>deathempire-crafting</code>.</p>
-    </section>
-
+    <!-- Footer y Colaboración -->
     <footer class="home-footer">
-      <p><a href="/DeathEmpire/contributing">Cómo contribuir</a> · <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">Global-Tracker</a> · <a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">Organización GitHub</a></p>
-      <p>DeathEmpire está en desarrollo. No representa disponibilidad pública del servidor.</p>
+      <div class="footer-cta-card">
+        <h3>Desarrollo Abierto y Gobernanza</h3>
+        <p>DeathEmpire es un proyecto modular en continua evolución técnica y narrativa. Consulta las directrices de contribución y flujo de ramas.</p>
+        <div class="footer-cta-buttons">
+          <a href="/DeathEmpire/contributing/" class="btn btn-secondary">Cómo Contribuir</a>
+          <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener" class="btn btn-outline">Global-Tracker en GitHub ↗</a>
+        </div>
+      </div>
+      <p class="disclaimer">DeathEmpire está en desarrollo activo. No representa disponibilidad pública de juego en servidor ni afiliación comercial con Mojang / Microsoft.</p>
     </footer>
   </article>
 </BaseLayout>

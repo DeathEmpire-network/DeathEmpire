@@ -1,1 +1,42 @@
-﻿
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { factions } from '../../data/factions';
+
+const title = 'Mundo y Facciones de DeathEmpire';
+const description = 'Siete facciones documentadas en el universo de DeathEmpire en constante conflicto y supervivencia.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header>
+      <h1>Mundo y Facciones de DeathEmpire</h1>
+      <p>Siete facciones canónicas documentadas en pugna constante por territorio, recursos y supervivencia.</p>
+    </header>
+
+    <section>
+      <h2>Las Siete Facciones Canónicas</h2>
+      <div class="grid" style="margin-top: var(--space-6);">
+        {factions.map(faction => (
+          <article class="card">
+            <div class="card-header">
+              <h3>{faction.name}</h3>
+              {faction.motto && <p class="text-gold" style="font-size: var(--text-sm); font-style: italic; margin-top: var(--space-1); margin-bottom: 0;">"{faction.motto}"</p>}
+            </div>
+            <div class="card-body">
+              <p>{faction.description}</p>
+              <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
+                <span class="status-badge status-in-progress">{faction.type}</span>
+                <span class="status-badge status-dev">{faction.alignment}</span>
+                <span class="status-badge status-completed">{faction.status}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+    </footer>
+  </article>
+</BaseLayout>
