@@ -1,0 +1,43 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Contribuir a DeathEmpire';
+const description = 'Cómo participar en el desarrollo del ecosistema DeathEmpire: repositorios, ramas, Pull Requests y normas de seguridad.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header>
+      <h1>Contribuir a DeathEmpire</h1>
+      <p>Cómo participar en el desarrollo del proyecto.</p>
+    </header>
+    <section>
+      <h2>Repositorios del Ecosistema</h2>
+      <p>El proyecto utiliza múltiples repositorios definidos en <code>repos.yaml</code> (fuente de verdad única):</p>
+      <ul>
+        <li><strong>Global-Tracker</strong> — Coordinación, releases, arquitectura, scripts</li>
+        <li><strong>DeathEmpire</strong> — Sitio público, lore, mundo, arquitectura, roadmap</li>
+        <li><strong>Actions</strong> — CI/CD privado y pruebas efímeras de integración in-game</li>
+        <li><strong>Backend</strong> — gRPC API, PostgreSQL, orquestación, auth, auditoría</li>
+        <li><strong>Folia-Fork</strong> — Servidor Folia personalizado con integración gRPC (upstream: PaperMC/Folia)</li>
+        <li><strong>Velocity-Fork</strong> — Proxy Velocity personalizado con Instance Registry gRPC (upstream: PaperMC/Velocity)</li>
+      </ul>
+      <p>Plugins planificados (creación bajo demanda): <code>deathempire-core</code>, <code>deathempire-economy</code>, <code>deathempire-worldgen</code>, <code>deathempire-crafting</code>.</p>
+    </section>
+    <section>
+      <h2>Ramas de Trabajo</h2>
+      <p>Se utilizan ramas <code>feature/*</code> para nuevo desarrollo y <code>bugfix/*</code> para correcciones. Las Pull Requests deben dirigirse a la rama <code>main</code> de cada repositorio correspondiente.</p>
+    </section>
+    <section>
+      <h2>Pull Requests</h2>
+      <p>Las Pull Requests son el mecanismo principal para incorporar cambios. Se revisa por pares y deben pasar las validaciones de CI antes de ser mergeadas. Las features marcadas como <strong>DISEÑADO</strong> en <a href="/DeathEmpire/status">FEATURE_REGISTRY</a> deben considerarse experimentales hasta su validación completa.</p>
+    </section>
+    <section>
+      <h2>No Publicar Secretos</h2>
+      <p>No se deben publicar secretos, tokens, IPs u otra información operativa en la documentación pública.</p>
+    </section>
+    <footer>
+      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+    </footer>
+  </article>
+</BaseLayout>

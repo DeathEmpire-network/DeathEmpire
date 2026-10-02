@@ -1,0 +1,50 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Arquitectura de DeathEmpire';
+const description = 'Ecosistema distribuido basado en Minecraft: Global-Tracker, Backend, Folia-Fork, Velocity-Fork, gRPC, Instance Registry y Heartbeat.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header>
+      <h1>Arquitectura de DeathEmpire</h1>
+      <p>Ecosistema distribuido basado en Minecraft con cuatro reinos y DeathZone.</p>
+    </header>
+    <section>
+      <h2>Global-Tracker</h2>
+      <p>Sistema de monitoreo y orquestación que coordina la comunicación entre repositorios, documentación y releases.</p>
+    </section>
+    <section>
+      <h2>Backend</h2>
+      <p>Backend ofrece servicios centrales: gRPC API, PostgreSQL, orquestación de instancias, autenticación y auditoría.</p>
+    </section>
+    <section>
+      <h2>Folia-Fork</h2>
+      <p>Folia-Fork gestiona el servidor regionalizado con integración gRPC personalizada. Upstream: PaperMC/Folia.</p>
+    </section>
+    <section>
+      <h2>Velocity-Fork</h2>
+      <p>Velocity-Fork gestiona el proxy y la entrada de jugadores con Instance Registry gRPC. Upstream: PaperMC/Velocity.</p>
+    </section>
+    <section>
+      <h2>gRPC</h2>
+      <p>gRPC conecta componentes: Backend, Folia-Fork, Velocity-Fork e Instance Registry.</p>
+    </section>
+    <section>
+      <h2>Instance Registry</h2>
+      <p>Instance Registry registra y supervisa instancias de servidores Folia y proxies Velocity.</p>
+    </section>
+    <section>
+      <h2>Heartbeat</h2>
+      <p>Heartbeat supervisa la disponibilidad de todas las instancias registradas.</p>
+    </section>
+    <section>
+      <h2>Integración End-to-End</h2>
+      <p>Integración end-to-end todavía no verificada.</p>
+    </section>
+    <footer>
+      <p>Estado: Diseñado | <a href="/DeathEmpire/status">Ver estado actual</a></p>
+    </footer>
+  </article>
+</BaseLayout>

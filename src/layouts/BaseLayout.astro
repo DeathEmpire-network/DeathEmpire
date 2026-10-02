@@ -1,0 +1,529 @@
+---
+// BaseLayout.astro - Layout base para todas las páginas
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description = 'DeathEmpire es un ecosistema de Minecraft persistente que combina lore, mundos, gameplay, Backend, Folia y Velocity en desarrollo.',
+  ogImage = '/DeathEmpire/og-default.png',
+  canonical
+} = Astro.props;
+
+const pageUrl = canonical || Astro.url.pathname;
+const fullUrl = new URL(pageUrl, 'https://deathempire-network.github.io').href;
+const fullOgImage = new URL(ogImage, 'https://deathempire-network.github.io').href;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Básico -->
+    <title>{title} | DeathEmpire</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:site_name" content="DeathEmpire" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/DeathEmpire/favicon.svg" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/DeathEmpire/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/DeathEmpire/apple-touch-icon.png" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/DeathEmpire/site.webmanifest" />
+
+    <!-- Estilos globales -->
+    <link rel="stylesheet" href="/DeathEmpire/src/styles/global.css" />
+
+    <!-- Scripts diferidos -->
+    <script is:inline defer>
+      // Tema - sin flash de contenido sin estilo
+      (function() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+      })();
+    </script>
+  </head>
+  <body class="page-{Astro.url.pathname.replace(/\//g, '-').replace(/^-|-$/g, '') || 'home'}">
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <!-- Logo / Brand -->
+        <a href="/DeathEmpire/" class="site-logo" aria-label="DeathEmpire - Inicio">
+          <span class="logo-icon" aria-hidden="true">⚔</span>
+          <span class="logo-text">DeathEmpire</span>
+        </a>
+
+        <!-- Navegación principal -->
+        <nav class="main-nav" role="navigation" aria-label="Navegación principal">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+            <span class="hamburger" aria-hidden="true"></span>
+          </button>
+          <ul id="nav-menu" class="nav-menu" role="menubar">
+            <li role="none"><a href="/DeathEmpire/lore" role="menuitem" class="nav-link">Lore</a></li>
+            <li role="none"><a href="/DeathEmpire/world" role="menuitem" class="nav-link">Mundo</a></li>
+            <li role="none"><a href="/DeathEmpire/gameplay" role="menuitem" class="nav-link">Gameplay</a></li>
+            <li role="none"><a href="/DeathEmpire/architecture" role="menuitem" class="nav-link">Arquitectura</a></li>
+            <li role="none"><a href="/DeathEmpire/status" role="menuitem" class="nav-link">Estado</a></li>
+            <li role="none"><a href="/DeathEmpire/roadmap" role="menuitem" class="nav-link">Roadmap</a></li>
+            <li role="none"><a href="/DeathEmpire/repositories" role="menuitem" class="nav-link">Repositorios</a></li>
+            <li role="none"><a href="/DeathEmpire/contributing" role="menuitem" class="nav-link">Contribuir</a></li>
+          </ul>
+        </nav>
+
+        <!-- CTA móvil -->
+        <div class="header-cta-mobile">
+          <a href="/DeathEmpire/lore" class="btn btn-primary btn-sm">Explorar Lore</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile nav overlay -->
+    <div class="nav-overlay" aria-hidden="true"></div>
+
+    <!-- Main content -->
+    <main id="main-content" role="main">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="/DeathEmpire/" class="logo" aria-label="DeathEmpire - Inicio">
+              <span class="logo-icon" aria-hidden="true">⚔</span>
+              <span class="logo-text">DeathEmpire</span>
+            </a>
+            <p>Un ecosistema de Minecraft persistente que combina narrativa de fantasía oscura, arquitectura distribuida y gameplay emergente.</p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Navegación principal">
+            <h4>Explorar</h4>
+            <ul>
+              <li><a href="/DeathEmpire/lore">Lore y Capítulos</a></li>
+              <li><a href="/DeathEmpire/world">Mundo y Facciones</a></li>
+              <li><a href="/DeathEmpire/gameplay">Gameplay</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label="Técnico">
+            <h4>Técnico</h4>
+            <ul>
+              <li><a href="/DeathEmpire/architecture">Arquitectura</a></li>
+              <li><a href="/DeathEmpire/status">Estado</a></li>
+              <li><a href="/DeathEmpire/roadmap">Roadmap</a></li>
+              <li><a href="/DeathEmpire/repositories">Repositorios</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label="Comunidad y enlaces">
+            <h4>Comunidad</h4>
+            <ul>
+              <li><a href="/DeathEmpire/contributing">Contribuir</a></li>
+              <li><a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">Global-Tracker</a></li>
+              <li><a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">Organización GitHub</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>DeathEmpire está en desarrollo. No representa disponibilidad pública del servidor.</p>
+          <div class="footer-links">
+            <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">GitHub</a>
+            <a href="#privacy">Privacidad</a>
+            <a href="#terms">Términos</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" aria-label="Volver arriba" title="Volver arriba">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+  </body>
+</html>
+
+<style>
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gold);
+    color: var(--color-charcoal);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    z-index: 9999;
+    transition: top var(--transition-fast);
+  }
+  .skip-link:focus {
+    top: var(--space-4);
+  }
+
+  /* Header */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--space-4) 0;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+  }
+
+  .site-logo:hover {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    font-size: var(--text-xl);
+    color: var(--color-gold);
+    filter: drop-shadow(0 0 8px rgba(201, 168, 107, 0.4));
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* Navegación */
+  .main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: var(--space-1);
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--color-gold);
+    transition: all var(--transition-normal);
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus::after {
+    width: 80%;
+  }
+
+  .nav-link[aria-current="page"] {
+    color: var(--color-gold);
+  }
+
+  .nav-link[aria-current="page"]::after {
+    width: 80%;
+  }
+
+  /* Nav toggle (mobile) */
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .hamburger {
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text-primary);
+    transition: background var(--transition-fast);
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-text-primary);
+    transition: transform var(--transition-normal);
+  }
+
+  .hamburger::before { top: -6px; }
+  .hamburger::after { bottom: -6px; }
+
+  .nav-toggle[aria-expanded="true"] .hamburger {
+    background: transparent;
+  }
+
+  .nav-toggle[aria-expanded="true"] .hamburger::before {
+    transform: rotate(45deg) translate(4px, 4px);
+  }
+
+  .nav-toggle[aria-expanded="true"] .hamburger::after {
+    transform: rotate(-45deg) translate(4px, -4px);
+  }
+
+  .header-cta-mobile {
+    display: none;
+  }
+
+  /* Nav overlay */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: calc(var(--z-sticky) - 1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .nav-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .main-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 280px;
+      max-width: 85vw;
+      background: var(--color-bg-secondary);
+      border-left: 1px solid var(--color-border-default);
+      padding: var(--space-8) var(--space-6) var(--space-6);
+      transform: translateX(100%);
+      transition: transform var(--transition-normal);
+      z-index: var(--z-fixed);
+      overflow-y: auto;
+    }
+
+    .main-nav.open {
+      transform: translateX(0);
+    }
+
+    .nav-menu {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-1);
+    }
+
+    .nav-link {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border-radius: var(--radius-md);
+      text-align: left;
+    }
+
+    .nav-link::after {
+      display: none;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+      background: var(--color-bg-tertiary);
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .header-cta-mobile {
+      display: block;
+    }
+
+    .header-cta-mobile .btn {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-xs);
+    }
+
+    .nav-overlay.visible {
+      display: block;
+    }
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: auto;
+  }
+
+  /* Back to top */
+  .back-to-top {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .back-to-top svg {
+    transition: transform var(--transition-fast);
+  }
+
+  .back-to-top:hover svg {
+    transform: translateY(-2px);
+  }
+
+  /* Page transitions */
+  @media (prefers-reduced-motion: no-preference) {
+    main > *:first-child {
+      animation: fade-in-up 0.5s ease-out forwards;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Mobile navigation
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.main-nav');
+  const navOverlay = document.querySelector('.nav-overlay');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function closeNav() {
+    navMenu?.classList.remove('open');
+    navOverlay?.classList.remove('visible');
+    navToggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function openNav() {
+    navMenu?.classList.add('open');
+    navOverlay?.classList.add('visible');
+    navToggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  navToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+    isExpanded ? closeNav() : openNav();
+  });
+
+  navOverlay?.addEventListener('click', closeNav);
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeNav();
+    });
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNav();
+  });
+
+  // Back to top
+  const backToTop = document.querySelector('.back-to-top');
+  const scrollThreshold = 300;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > scrollThreshold) {
+      backToTop?.classList.add('visible');
+    } else {
+      backToTop?.classList.remove('visible');
+    }
+  });
+
+  backToTop?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Active nav link
+  const currentPath = window.location.pathname;
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && currentPath.startsWith(href) && href !== '/DeathEmpire/') {
+      link.setAttribute('aria-current', 'page');
+    } else if (currentPath === '/DeathEmpire/' || currentPath === '/DeathEmpire') {
+      const homeLink = document.querySelector('.nav-link[href="/DeathEmpire/"]');
+      homeLink?.setAttribute('aria-current', 'page');
+    }
+  });
+</script>

@@ -1,0 +1,78 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Gameplay de DeathEmpire';
+const description = 'Sistema de clases, roles, crafting, equipamiento, economía, facciones y atributos canónicos de DeathEmpire.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header>
+      <h1>Gameplay de DeathEmpire</h1>
+      <p>Sistema de clases, roles, crafting, equipamiento y estadísticas.</p>
+    </header>
+
+    <section>
+      <h2>Clases y Roles</h2>
+      <p>Clases documentadas: Guerrero, Pícaro, Mago, Clérigo, Especialista. Las especializaciones mantienen una relación clara entre arquetipo, rol, arma y estilo de juego.</p>
+    </section>
+
+    <section>
+      <h2>Atributos Canónicos</h2>
+      <p>Usa los siguientes atributos:</p>
+      <ul>
+        <li><strong>STR</strong>: fuerza física, daño melee y capacidad de carga.</li>
+        <li><strong>STA</strong>: vida, resistencia física y aguante.</li>
+        <li><strong>AGI</strong>: velocidad de ataque, movimiento y esquiva.</li>
+        <li><strong>INT</strong>: maná y daño mágico.</li>
+        <li><strong>DEX</strong>: precisión, crítico y eficacia en Life Skills.</li>
+      </ul>
+      <p>No agregues atributos nuevos sin documentar su necesidad y relación con los existentes.</p>
+    </section>
+
+    <section>
+      <h2>Crafting</h2>
+      <p>Features CRF-001 (CraftingPipeline), CRF-002 (MaterialRefinery), CRF-003 (RecipeRegistry) aparecen en FEATURE_REGISTRY.md en estado <strong>DISEÑADO</strong>. El CraftingPipeline tiene 4 fases: refino, creación de componentes, ensamblaje final, aplicación de estadísticas y calidad.</p>
+    </section>
+
+    <section>
+      <h2>Economía y Transporte</h2>
+      <p>Features ECO-001 (InventoryService), ECO-002 (AuctionService), ECO-003 (CaravanService) aparecen en FEATURE_REGISTRY.md en estado <strong>DISEÑADO</strong>. Sistemas económicos: bazaar regional, subasta global, impuestos, caravanas NPC y jugador. Estado experimental.</p>
+    </section>
+
+    <section>
+      <h2>Equipamiento y Estadísticas</h2>
+      <p>Atributos STR, STA, AGI, INT, DEX con penalizaciones por equipamiento. Las fórmulas se mantienen en funciones aisladas y testeables. No se usan valores mágicos dispersos.</p>
+    </section>
+
+    <section>
+      <h2>Estados de las Features (según FEATURE_REGISTRY)</h2>
+      <p>Cada bloque debe indicar su estado actual:</p>
+      <ul>
+        <li><strong>DISEÑADO</strong>: definido en game design pero sin implementación completada</li>
+        <li><strong>PROTOTIPADO</strong>: existe un prototipo o prueba de concepto</li>
+        <li><strong>IMPLEMENTADO</strong>: existe en código en una rama principal o estable</li>
+        <li><strong>NO DISPONIBLE</strong>: aún no diseñado ni prototipado</li>
+      </ul>
+      <p>Ejemplo para economy/features:</p>
+      <ul>
+        <li>CRF-001 CraftingPipeline: <strong>DISEÑADO</strong></li>
+        <li>CRF-002 MaterialRefinery: <strong>DISEÑADO</strong></li>
+        <li>CRF-003 RecipeRegistry: <strong>DISEÑADO</strong></li>
+        <li>ECO-001 InventoryService: <strong>DISEÑADO</strong></li>
+        <li>ECO-002 AuctionService: <strong>DISEÑADO</strong></li>
+        <li>ECO-003 CaravanService: <strong>DISEÑADO</strong></li>
+      </ul>
+      <p class="note">No afirmes que una feature está implementada únicamente porque exista un stub o comando básico.</p>
+    </section>
+
+    <section>
+      <h2>Siete Facciones Documentadas</h2>
+      <p>El proyecto tiene 7 facciones documentadas (no 6): Inquisición del Maná, Cazadores Estelares, Legiones Remanentes del Imperio, Culto del Maná Salvaje, Gremio de Artesanos y Forjadores, Supervivientes Libres y Enjambre de las Bestias del Espacio. Cada facción tiene estado documentado (documentado, en desarrollo o concept).</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+    </footer>
+  </article>
+</BaseLayout>
