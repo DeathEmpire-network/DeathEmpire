@@ -1,0 +1,29 @@
+{
+  "name": "DeathEmpire",
+  "short_name": "DeathEmpire",
+  "description": "Ecosistema de Minecraft persistente: lore, mundo, gameplay y arquitectura distribuida.",
+  "start_url": "/DeathEmpire/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#c9a86b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/DeathEmpire/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/DeathEmpire/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/DeathEmpire/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    }
+  ]
+}
