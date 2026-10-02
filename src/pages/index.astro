@@ -1,17 +1,65 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+const title = 'DeathEmpire';
+const description = 'Ecosistema de Minecraft persistente que combina narrativa de fantasía oscura, arquitectura distribuida y gameplay emergente.';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={title} description={description}>
+  <article>
+    <header class="hero">
+      <h1>DeathEmpire</h1>
+      <p class="tagline">Un ecosistema de Minecraft persistente que combina narrativa de fantasía oscura, arquitectura distribuida y gameplay emergente.</p>
+      <div class="hero-cta">
+        <a href="/DeathEmpire/lore" class="btn btn-primary btn-lg">Explorar Lore</a>
+        <a href="/DeathEmpire/gameplay" class="btn btn-secondary btn-lg">Ver Gameplay</a>
+      </div>
+    </header>
+
+    <section class="features-grid">
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/lore">Lore y Capítulos</a></h2>
+        <p>Cinco capítulos canónicos: La Era del Esplendor, El Despertar del Maná, El Cielo que Cayó, Las Bestias del Espacio, El Hijo del Invocador. Más <strong>LORE_CANON.md</strong> como documento normativo.</p>
+      </article>
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/world">Mundo y Facciones</a></h2>
+        <p><strong>7 facciones documentadas</strong>: Inquisición del Maná, Cazadores Estelares, Legiones Remanentes, Culto del Maná Salvaje, Gremio de Artesanos, Supervivientes Libres, Enjambre de las Bestias.</p>
+      </article>
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/gameplay">Gameplay</a></h2>
+        <p>Clases (Guerrero, Pícaro, Mago, Clérigo, Especialista), atributos canónicos (STR, STA, AGI, INT, DEX), crafting, economía, equipamiento y progresión.</p>
+      </article>
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/architecture">Arquitectura</a></h2>
+        <p>Global-Tracker, Backend (gRPC, PostgreSQL), Folia-Fork, Velocity-Fork, Instance Registry, Heartbeat. Integración end-to-end pendiente.</p>
+      </article>
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/status">Estado del Proyecto</a></h2>
+        <p>Backend 63/63 tests, Folia build/tests OK, Velocity integración pendiente. <strong>8 Critical Gaps</strong> documentados. Folia upstream 26.2.x en PR.</p>
+      </article>
+      <article class="feature-card">
+        <h2><a href="/DeathEmpire/roadmap">Roadmap</a></h2>
+        <p>Fases: Fundación, Core Gameplay, Economía, Mundo, Pulido. Features rastreadas en FEATURE_REGISTRY con estados DISEÑADO/PROTOTIPADO/IMPLEMENTADO/VALIDADO.</p>
+      </article>
+    </section>
+
+    <section class="repos-section">
+      <h2>Repositorios del Ecosistema</h2>
+      <p>Definidos en <code>repos.yaml</code> (fuente de verdad única):</p>
+      <ul class="repo-list">
+        <li><strong>Global-Tracker</strong> — Coordinación, releases, arquitectura</li>
+        <li><strong>DeathEmpire</strong> — Sitio público (este repo)</li>
+        <li><strong>Actions</strong> — CI/CD privado y pruebas efímeras</li>
+        <li><strong>Backend</strong> — gRPC API, orquestación, auth</li>
+        <li><strong>Folia-Fork</strong> — Servidor regionalizado (upstream PaperMC/Folia)</li>
+        <li><strong>Velocity-Fork</strong> — Proxy con Instance Registry (upstream PaperMC/Velocity)</li>
+      </ul>
+      <p class="note">Plugins planificados: <code>deathempire-core</code>, <code>deathempire-economy</code>, <code>deathempire-worldgen</code>, <code>deathempire-crafting</code>.</p>
+    </section>
+
+    <footer class="home-footer">
+      <p><a href="/DeathEmpire/contributing">Cómo contribuir</a> · <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">Global-Tracker</a> · <a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">Organización GitHub</a></p>
+      <p>DeathEmpire está en desarrollo. No representa disponibilidad pública del servidor.</p>
+    </footer>
+  </article>
+</BaseLayout>
