@@ -1,5 +1,7 @@
 ---
 // BaseLayout.astro - Layout base para todas las páginas
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -59,9 +61,6 @@ const fullOgImage = new URL(ogImage, 'https://deathempire-network.github.io').hr
 
     <!-- Manifest -->
     <link rel="manifest" href="/DeathEmpire/site.webmanifest" />
-
-    <!-- Estilos globales -->
-    <link rel="stylesheet" href="/DeathEmpire/src/styles/global.css" />
 
     <!-- Scripts diferidos -->
     <script is:inline defer>
