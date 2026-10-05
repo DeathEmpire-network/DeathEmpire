@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Chronicles of DeathEmpire';
+const description = 'Notes from the development of DeathEmpire: the archive, the foundations and the old Empire.';
+---
+
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/chronicles/" esPath="/DeathEmpire/es/chronicles/">
+  <article>
+    <header>
+      <p class="section-eyebrow">CHRONICLES</p>
+      <h1>Chronicles of the Empire</h1>
+      <p>Notes from the development of DeathEmpire.</p>
+    </header>
+
+    <section>
+      <h2>Latest</h2>
+      <div class="grid" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">02 OCT 2026 · DEVELOPMENT</p>
+            <h3>The Archive takes its next form</h3>
+          </div>
+          <div class="card-body">
+            <p>A new editorial direction for lore, worldbuilding and discovery: the site now speaks to visitors first, and to builders second.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">28 SEP 2026 · PROJECT STATUS</p>
+            <h3>Foundations for protected development</h3>
+          </div>
+          <div class="card-body">
+            <p>The project advances with a stronger review and delivery process, keeping the canon in Git and the living parts ready for their time.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">20 SEP 2026 · WORLD</p>
+            <h3>A first look at the remnants of the old Empire</h3>
+          </div>
+          <div class="card-body">
+            <p>Ruins, frontiers and the stains of Wild Mana: the world that remains, waiting to be explored.</p>
+          </div>
+        </article>
+      </div>
+      <p class="note" style="margin-top: var(--space-6);">Chronicles begin as static notes. Dynamic announcements will arrive later without rebuilding the site.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/">Back to home</a> · <a href="/DeathEmpire/project/">Discover the project</a></p>
+    </footer>
+  </article>
+</BaseLayout>

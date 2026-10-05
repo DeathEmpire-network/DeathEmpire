@@ -1,74 +1,61 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'Roadmap de DeathEmpire';
-const description = 'Fases de desarrollo y trazabilidad de características según FEATURE_REGISTRY de DeathEmpire.';
+const title = 'Roadmap of DeathEmpire';
+const description = 'Milestones in plain language: world foundations, game systems, proving grounds, private alpha and public evolution.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/roadmap/" esPath="/DeathEmpire/es/roadmap/">
   <article>
     <header>
-      <h1>Roadmap de DeathEmpire</h1>
-      <p>Fases estructuradas y trazabilidad técnica según el registro normativo <code>FEATURE_REGISTRY.md</code>.</p>
+      <p class="section-eyebrow">ROADMAP</p>
+      <h1>Milestones</h1>
+      <p>Where DeathEmpire is heading, in stages anyone can follow.</p>
     </header>
 
     <section>
-      <h2>Fases del Proyecto</h2>
+      <h2>The Journey</h2>
       <div class="grid" style="margin-top: var(--space-6);">
         <article class="card">
-          <div class="card-header">
-            <h3>Fase 1: Fundación</h3>
-          </div>
+          <div class="card-header"><h3>World Foundations</h3></div>
           <div class="card-body">
-            <p>Infraestructura base, orquestación de repositorios, gRPC Backend, PostgreSQL y configuración de instancias distribuidas.</p>
-            <span class="status-badge status-completed">Avanzado</span>
+            <p>Define the identity, the lore and the core systems of the world.</p>
+            <span class="status-badge status-completed">Advanced</span>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Fase 2: Core Gameplay</h3>
-          </div>
+          <div class="card-header"><h3>Game Systems</h3></div>
           <div class="card-body">
-            <p>Sistemas de clases canónicas, roles, atributos (STR, STA, AGI, INT, DEX), balanceo de combate y penalizaciones por equipo.</p>
-            <span class="status-badge status-in-progress">En Progreso</span>
+            <p>Develop progression, exploration, factions and playable experiences.</p>
+            <span class="status-badge status-in-progress">In Progress</span>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Fase 3: Economía</h3>
-          </div>
+          <div class="card-header"><h3>Proving Grounds</h3></div>
           <div class="card-body">
-            <p>Pipeline de refino en 4 etapas, forja de equipamiento, caravanas comerciales y sistema de casas de subastas regionales.</p>
-            <span class="status-badge status-planned">Diseñado</span>
+            <p>Prepare stable environments for the first closed tests.</p>
+            <span class="status-badge status-planned">Designed</span>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Fase 4: Mundo</h3>
-          </div>
+          <div class="card-header"><h3>Private Alpha</h3></div>
           <div class="card-body">
-            <p>Generación de terreno regional en Folia, DeathZone hostil, integración de 7 facciones y eventos de Maná salvaje.</p>
-            <span class="status-badge status-planned">Planificado</span>
+            <p>Invite a small community to play, observe and improve.</p>
+            <span class="status-badge status-planned">Planned</span>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Fase 5: Pulido y Validación</h3>
-          </div>
+          <div class="card-header"><h3>Public Evolution</h3></div>
           <div class="card-body">
-            <p>Pruebas de carga masiva, auditoría de concurrencia y validación integral end-to-end de toda la red distribuida.</p>
-            <span class="status-badge status-dev">Futuro</span>
+            <p>Expand content, stability and access gradually.</p>
+            <span class="status-badge status-dev">Future</span>
           </div>
         </article>
       </div>
     </section>
 
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/project/">Back to The Project</a> · <a href="/DeathEmpire/status/">Development status</a></p>
     </footer>
   </article>
 </BaseLayout>

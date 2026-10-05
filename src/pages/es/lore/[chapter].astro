@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BookReader from '../../../components/BookReader.astro';
+import { chapters } from '../../../data/book/tome1';
+import { buildChapter, spreadHref } from '../../../data/book/spreads';
+
+export function getStaticPaths() {
+  return chapters.map((c) => ({ params: { chapter: c.slug } }));
+}
+
+const { chapter: slug } = Astro.params;
+const reader = buildChapter(slug ?? '', 'es');
+if (!reader) throw new Error(`Unknown chapter: ${slug}`);
+const depth = Math.min(72, Math.max(24, reader.totalSpreads * 4));
+---
+
+<BaseLayout
+  title={reader.title}
+  description={reader.description}
+  lang="es"
+  enPath={spreadHref('en', reader.chapter.slug, 1)}
+  esPath={spreadHref('es', reader.chapter.slug, 1)}
+>
+  <BookReader
+    lang="es"
+    spreads={reader.spreads}
+    depth={depth}
+    prevChapter={reader.prevChapter}
+    nextChapter={reader.nextChapter}
+    indexHref={reader.indexHref}
+    indexLabel={reader.indexLabel}
+    pagingLabel={reader.pagingLabel}
+    firstLabel={reader.firstLabel}
+    lastLabel={reader.lastLabel}
+    prevLabel={reader.prevLabel}
+    nextLabel={reader.nextLabel}
+    progressOf={(s: number, t: number) => `Capítulo ${reader.chapter.order} de 10 · Apertura ${s} de ${t}`}
+  />
+</BaseLayout>

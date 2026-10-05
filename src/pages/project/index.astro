@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'The DeathEmpire Project';
+const description = 'DeathEmpire is an independent dark-fantasy project in active development, created and led by Kramsuiakari.';
+---
+
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/project/" esPath="/DeathEmpire/es/project/">
+  <article>
+    <header>
+      <p class="section-eyebrow">THE PROJECT</p>
+      <h1>The DeathEmpire Project</h1>
+      <p>DeathEmpire is an independent dark-fantasy project in active development, created and led by Kramsuiakari.</p>
+      <p>It is being built with a long-term focus on worldbuilding, meaningful gameplay systems and a coherent player experience. Private by default. Open to meaningful collaboration.</p>
+    </header>
+
+    <section>
+      <h2>What DeathEmpire Is Building</h2>
+      <ul>
+        <li>◈ A living dark-fantasy world</li>
+        <li>◈ A foundation for systems that can grow responsibly</li>
+        <li>◈ A project shaped with care, consistency and long-term intent</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Development</h2>
+      <p>DeathEmpire is currently in active development. Public availability has not yet been announced.</p>
+      <p>
+        <a href="/DeathEmpire/roadmap/" class="btn btn-secondary btn-sm">View the Roadmap</a>
+        <a href="/DeathEmpire/chronicles/" class="btn btn-outline btn-sm">Follow the Chronicles</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>For Technical Readers</h2>
+      <p>Interested in how the project is being built? These pages describe the working foundations:</p>
+      <ul>
+        <li><a href="/DeathEmpire/architecture/">How it is being built</a> — services and structure</li>
+        <li><a href="/DeathEmpire/status/">Development status</a> — current focus and next steps</li>
+        <li><a href="/DeathEmpire/roadmap/">Roadmap</a> — milestones in plain language</li>
+        <li><a href="/DeathEmpire/repositories/">Public workspaces</a> — where the project lives</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/">Back to home</a> · <a href="/DeathEmpire/collaborate/">Collaborate with DeathEmpire</a></p>
+    </footer>
+  </article>
+</BaseLayout>

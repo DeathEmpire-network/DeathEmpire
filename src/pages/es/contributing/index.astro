@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Ruta Técnica de Colaboración';
+const description = 'La ruta técnica para colaborar con DeathEmpire: espacios de trabajo, ramas, pull requests y reglas de seguridad.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/contributing/" esPath="/DeathEmpire/es/contributing/">
+  <article>
+    <header>
+      <p class="section-eyebrow">PARA LECTORES TÉCNICOS</p>
+      <h1>Ruta Técnica de Colaboración</h1>
+      <p>Esta es la ruta técnica. Si buscas colaboración creativa, de pruebas o de apoyo, empieza en <a href="/DeathEmpire/es/collaborate/">Colaborar</a>.</p>
+    </header>
+    <section>
+      <h2>Espacios de Trabajo</h2>
+      <p>El proyecto se organiza en espacios coordinados: coordinación, sitio público, automatización privada, servicios del juego, servidores regionales y proxy de entrada. Los espacios públicos están en <a href="/DeathEmpire/es/repositories/">Desarrollo Abierto</a>.</p>
+    </section>
+    <section>
+      <h2>Ramas de Trabajo</h2>
+      <p>Usa ramas dedicadas por cambio, abiertas desde la rama principal correspondiente. Se prefieren ramas pequeñas y revisables sobre reescrituras grandes.</p>
+    </section>
+    <section>
+      <h2>Pull Requests</h2>
+      <p>Los pull requests son la vía principal para integrar cambios. Se revisan por pares y deben pasar las validaciones automatizadas antes de fusionarse. Las features aún marcadas como diseñadas deben tratarse como experimentales hasta su validación completa.</p>
+    </section>
+    <section>
+      <h2>Nunca Publiques Secretos</h2>
+      <p>Nunca publiques secretos, tokens, IPs ni otra información operativa en la documentación pública.</p>
+    </section>
+    <footer>
+      <p><a href="/DeathEmpire/es/collaborate/">Volver a Colaborar</a> · <a href="/DeathEmpire/es/project/">El Proyecto</a></p>
+    </footer>
+  </article>
+</BaseLayout>

@@ -2,41 +2,104 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { factions } from '../../data/factions';
 
-const title = 'Mundo y Facciones de DeathEmpire';
-const description = 'Siete facciones documentadas en el universo de DeathEmpire en constante conflicto y supervivencia.';
+const title = 'The World of DeathEmpire';
+const description = 'Seven documented factions struggle over territory, resources and survival in a scarred world.';
+
+// Editorial English rendering. Proper names stay canonical; badges become readable.
+const factionsEn: Record<string, { description: string; motto?: string }> = {
+  inquisicion: {
+    description: 'A military-religious order founded after the Awakening. Its mandate: contain, study and eradicate the Corruption, wielding near-imperial authority in controlled lands.',
+    motto: 'Mana serves. Chaos burns.',
+  },
+  'cazadores-estelares': {
+    description: 'A martial order that tracks, fights and studies the Space Beasts. They wield weapons forged from Star Shards — the only ones who can kill an Alpha for good.',
+    motto: 'The sky fell. We hunt what it brought.',
+  },
+  'legiones-remanentes': {
+    description: 'Shards of the imperial army holding discipline and loyalty. They guard bastions, escort caravans and keep order where the Inquisition cannot reach.',
+    motto: 'The Empire has not fallen. It only waits.',
+  },
+  'culto-mana': {
+    description: 'A sect worshipping Wild Mana as a god. They seek voluntary Corruption, believing the Awakening was an ascension, not a catastrophe. Dangerous, unpredictable, infiltrated.',
+    motto: 'Chaos is freedom. Mana is god.',
+  },
+  'gremio-artesanos': {
+    description: 'Heirs of imperial craft. They forge Star Shard weapons, keep infrastructure alive and trade knowledge. Neutral, yet essential to everyone.',
+    motto: 'Steel chooses no side. We do.',
+  },
+  'supervivientes-libres': {
+    description: 'Communities refusing central authority. Self-reliant, mobile, pragmatic — shelter for those who fit nowhere else.',
+    motto: 'None tell us how to live. Only how to die.',
+  },
+  'bestias-espacio-faccion': {
+    description: 'Not a faction in any human sense. A hive mind of the Beasts, coordinated by Alphas. Its goal: spread Corruption, consume, adapt.',
+    motto: '(They have no language. Only Hunger.)',
+  },
+};
+
+const typeLabel: Record<string, string> = {
+  politica: 'Political',
+  militar: 'Military',
+  religiosa: 'Religious',
+  comercial: 'Mercantile',
+  academica: 'Scholarly',
+  criminal: 'Criminal',
+  sobrevivientes: 'Survivors',
+  cazadores: 'Hunters',
+  inquisicion: 'Inquisition',
+  bestias: 'Beasts',
+};
+
+const statusLabel: Record<string, string> = {
+  activa: 'Active',
+  fragmentada: 'Fragmented',
+  declinante: 'Declining',
+  extinta: 'Extinct',
+  secreta: 'Secret',
+  'en-guerra': 'At war',
+};
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/world/" esPath="/DeathEmpire/es/world/">
   <article>
     <header>
-      <h1>Mundo y Facciones de DeathEmpire</h1>
-      <p>Siete facciones canónicas documentadas en pugna constante por territorio, recursos y supervivencia.</p>
+      <p class="section-eyebrow">THE WORLD</p>
+      <h1>The World of DeathEmpire</h1>
+      <p>DeathEmpire is not a land waiting to be conquered. It is a scarred world still deciding what it will become.</p>
     </header>
 
     <section>
-      <h2>Las Siete Facciones Canónicas</h2>
+      <h2>A World in Fragments</h2>
+      <p>The old Empire survives in ruins. Its symbols endure, but its authority has been claimed, twisted or abandoned — while Wild Mana stains frontiers, ruins and disputed lands.</p>
+    </section>
+
+    <section>
+      <h2>The Seven Canonical Factions</h2>
       <div class="grid" style="margin-top: var(--space-6);">
-        {factions.map(faction => (
-          <article class="card">
-            <div class="card-header">
-              <h3>{faction.name}</h3>
-              {faction.motto && <p class="text-gold" style="font-size: var(--text-sm); font-style: italic; margin-top: var(--space-1); margin-bottom: 0;">"{faction.motto}"</p>}
-            </div>
-            <div class="card-body">
-              <p>{faction.description}</p>
-              <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
-                <span class="status-badge status-in-progress">{faction.type}</span>
-                <span class="status-badge status-dev">{faction.alignment}</span>
-                <span class="status-badge status-completed">{faction.status}</span>
+        {factions.map(faction => {
+          const text = factionsEn[faction.id];
+          return (
+            <article class="card">
+              <div class="card-header">
+                <h3>{faction.name}</h3>
+                {(text?.motto ?? faction.motto) && <p class="text-gold" style="font-size: var(--text-sm); font-style: italic; margin-top: var(--space-1); margin-bottom: 0;">"{text?.motto ?? faction.motto}"</p>}
               </div>
-            </div>
-          </article>
-        ))}
+              <div class="card-body">
+                <p>{text?.description ?? faction.description}</p>
+                <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
+                  <span class="status-badge status-in-progress">{typeLabel[faction.type] ?? faction.type}</span>
+                  <span class="status-badge status-completed">{statusLabel[faction.status] ?? faction.status}</span>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
+      <p class="note" style="margin-top: var(--space-6);">Faction names stay canonical. Full English chronicles for every faction are still in translation.</p>
     </section>
 
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/">Back to home</a> · <a href="/DeathEmpire/lore/">Explore the Lore</a></p>
     </footer>
   </article>
 </BaseLayout>

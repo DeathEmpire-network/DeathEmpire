@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Roadmap de DeathEmpire';
+const description = 'Hitos en lenguaje claro: cimientos del mundo, sistemas de juego, campo de pruebas, alpha privada y evolución pública.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/roadmap/" esPath="/DeathEmpire/es/roadmap/">
+  <article>
+    <header>
+      <p class="section-eyebrow">ROADMAP</p>
+      <h1>Hitos</h1>
+      <p>Hacia dónde se dirige DeathEmpire, en etapas que cualquiera puede seguir.</p>
+    </header>
+
+    <section>
+      <h2>El Camino</h2>
+      <div class="grid" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header"><h3>Cimientos del Mundo</h3></div>
+          <div class="card-body">
+            <p>Definir la identidad, el lore y los sistemas centrales del mundo.</p>
+            <span class="status-badge status-completed">Avanzado</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Sistemas de Juego</h3></div>
+          <div class="card-body">
+            <p>Desarrollar progresión, exploración, facciones y experiencias jugables.</p>
+            <span class="status-badge status-in-progress">En Progreso</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Campo de Pruebas</h3></div>
+          <div class="card-body">
+            <p>Preparar entornos estables para las primeras pruebas cerradas.</p>
+            <span class="status-badge status-planned">Diseñado</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Alpha Privada</h3></div>
+          <div class="card-body">
+            <p>Invitar a una comunidad pequeña para probar, observar y mejorar.</p>
+            <span class="status-badge status-planned">Planificado</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Evolución Pública</h3></div>
+          <div class="card-body">
+            <p>Ampliar contenido, estabilidad y acceso de forma gradual.</p>
+            <span class="status-badge status-dev">Futuro</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/project/">Volver a El Proyecto</a> · <a href="/DeathEmpire/es/status/">Estado del desarrollo</a></p>
+    </footer>
+  </article>
+</BaseLayout>

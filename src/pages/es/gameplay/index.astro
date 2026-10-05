@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Gameplay de DeathEmpire';
+const description = 'Forja tu legado: la lealtad, la preparación, el riesgo y la consecuencia definen quién serás en DeathEmpire.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/gameplay/" esPath="/DeathEmpire/es/gameplay/">
+  <article>
+    <header>
+      <p class="section-eyebrow">GAMEPLAY</p>
+      <h1>Forja tu legado</h1>
+      <p>Tu lugar en DeathEmpire no lo decidirá un solo camino. Lo moldearán la lealtad, la preparación, el riesgo y la consecuencia — sirvas al orden, caces reliquias, estudies el Maná o te pierdas en la corrupción.</p>
+    </header>
+
+    <section>
+      <h2>Los Pilares</h2>
+      <div class="grid grid-2" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header"><h3>⚔ Combate y Especialización</h3></div>
+          <div class="card-body"><p>Construye un camino a tu medida: guerrero, pícaro, mago, clérigo o especialista — cada uno con un vínculo claro entre arquetipo, rol, arma y estilo de juego.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>🔮 Exploración y Riesgo</h3></div>
+          <div class="card-body"><p>Descubre lugares que pueden cambiar lo que eres: zonas de Maná Salvaje, cráteres estelares y ruinas donde cada ventaja tiene un costo, una historia y un riesgo.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>👁 Facciones y Reputación</h3></div>
+          <div class="card-body"><p>La lealtad abre puertas y cierra otras. Sirve a la Inquisición, caza con los Cazadores Estelares o camina en soledad con los Supervivientes Libres.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>💀 Equipo y Progresión</h3></div>
+          <div class="card-body"><p>Fabrica, refina y porta equipo que cuente tu historia — del acero de Fragmentos Estelares a las reliquias del viejo Imperio.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Nota de Desarrollo</h2>
+      <p>Los sistemas de gameplay están en desarrollo activo. Lo que lees aquí describe la dirección del proyecto, no una promesa de disponibilidad inmediata. Los sistemas aún en formación se marcan <span class="status-badge status-dev">En desarrollo</span>.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/">Volver al inicio</a> · <a href="/DeathEmpire/es/roadmap/">Seguir el Roadmap</a></p>
+    </footer>
+  </article>
+</BaseLayout>

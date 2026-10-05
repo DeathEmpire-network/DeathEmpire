@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Cómo se Está Construyendo DeathEmpire';
+const description = 'Un proyecto de largo recorrido: un mundo con identidad propia, sistemas pensados para crecer y una base estable.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/architecture/" esPath="/DeathEmpire/es/architecture/">
+  <article>
+    <header>
+      <p class="section-eyebrow">PARA LECTORES TÉCNICOS</p>
+      <h1>Cómo se Está Construyendo DeathEmpire</h1>
+      <p>DeathEmpire se construye como un proyecto de largo recorrido: un mundo con identidad propia, sistemas pensados para crecer y una base que busca mantenerse estable a medida que la comunidad evoluciona.</p>
+    </header>
+    <section>
+      <h2>Coordinación</h2>
+      <p>Un espacio central coordina la comunicación entre repositorios, documentación y releases.</p>
+    </section>
+    <section>
+      <h2>Servicios del Juego</h2>
+      <p>Los servicios centrales sostienen persistencia, orquestación de instancias, autenticación y auditoría de red — diseñados con controles de acceso por servicio.</p>
+    </section>
+    <section>
+      <h2>Servidores Regionales</h2>
+      <p>Los servidores regionalizados sostienen el mundo jugable, con extensiones dedicadas a la sincronización de entidades.</p>
+    </section>
+    <section>
+      <h2>Puerta de Entrada</h2>
+      <p>Un proxy distribuido recibe a los jugadores y los dirige mediante un registro de instancias.</p>
+    </section>
+    <section>
+      <h2>Comunicación Interna</h2>
+      <p>Los servicios internos se comunican por canales diseñados con controles de acceso — para que el mundo crezca sin perder estabilidad.</p>
+    </section>
+    <section>
+      <h2>Presencia</h2>
+      <p>El sistema está diseñado para reflejar el estado de la red mediante resúmenes públicos filtrados, sin exponer información sensible.</p>
+    </section>
+    <section>
+      <h2>Integración de Extremo a Extremo</h2>
+      <p>La integración de extremo a extremo aún no está verificada. <span class="status-badge status-dev">En desarrollo</span></p>
+    </section>
+    <footer>
+      <p><a href="/DeathEmpire/es/project/">Volver a El Proyecto</a> · <a href="/DeathEmpire/es/status/">Estado del desarrollo</a></p>
+    </footer>
+  </article>
+</BaseLayout>

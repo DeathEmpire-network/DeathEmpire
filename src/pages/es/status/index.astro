@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Estado del Desarrollo';
+const description = 'DeathEmpire está en desarrollo activo, construyendo sistemas fundacionales para futuras pruebas cerradas.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/status/" esPath="/DeathEmpire/es/status/">
+  <article>
+    <header>
+      <p class="section-eyebrow">ESTADO DEL DESARROLLO</p>
+      <h1>Desarrollo Activo</h1>
+      <p>DeathEmpire se está construyendo y refinando actualmente. El acceso público al juego aún no ha sido anunciado.</p>
+    </header>
+
+    <section>
+      <h2>Enfoque Actual</h2>
+      <ul>
+        <li>✓ Presentación pública del mundo y el lore</li>
+        <li>✓ Cimientos centrales del proyecto</li>
+        <li>◐ Desarrollo de sistemas de gameplay <span class="status-badge status-dev">En desarrollo</span></li>
+        <li>◐ Entornos controlados de prueba <span class="status-badge status-dev">En desarrollo</span></li>
+        <li>○ Preparación de alpha cerrada <span class="status-badge status-planned">Planificado</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Lo que Sigue</h2>
+      <p>La próxima etapa se centra en fortalecer los sistemas centrales, refinar el archivo del mundo y preparar futuras rutas de prueba.</p>
+      <p><a href="/DeathEmpire/es/roadmap/" class="btn btn-secondary btn-sm">Ver Roadmap</a></p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/project/">Volver a El Proyecto</a> · <a href="/DeathEmpire/es/chronicles/">Seguir las Crónicas</a></p>
+    </footer>
+  </article>
+</BaseLayout>
