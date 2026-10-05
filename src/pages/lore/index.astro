@@ -1,43 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loreChapters } from '../../data/lore';
+import { tome, chapters } from '../../data/book/tome1';
 
-const title = 'Lore y Capítulos de DeathEmpire';
-const description = 'Cinco capítulos canónicos del lore de DeathEmpire: La Era del Esplendor, El Despertar del Maná, El Cielo que Cayó, Las Bestias del Espacio y El Hijo del Invocador.';
+const title = 'The DeathEmpire Archive';
+const description = 'Tome I · The Fallen Sky: ten canonical chapters, from Splendor to the Level 78 Child.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/lore/" esPath="/DeathEmpire/es/lore/">
   <article>
     <header>
-      <h1>Lore y Capítulos de DeathEmpire</h1>
-      <p>Cinco capítulos canónicos normados por <code>LORE_CANON.md</code> como documento normativo.</p>
+      <p class="section-eyebrow">THE ARCHIVE</p>
+      <h1>{tome.titleEn}</h1>
+      <p>{tome.subtitleEn}. Chronicles of an empire shaped by memory, betrayal, forbidden power and the cost of survival.</p>
     </header>
 
     <section>
-      <h2>Capítulos Canónicos</h2>
+      <h2>Chapters of Tome I</h2>
       <div class="grid" style="margin-top: var(--space-6);">
-        {loreChapters.map(chapter => (
+        {chapters.map((chapter) => (
           <article class="card">
             <div class="card-header">
-              <h3>{chapter.order}. {chapter.title}</h3>
-              {chapter.subtitle && <p class="text-gold" style="font-size: var(--text-sm); margin-top: var(--space-1); margin-bottom: 0;">{chapter.subtitle}</p>}
+              <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">Chapter {chapter.order} · {chapter.periodEn}</p>
+              <h3>
+                <a href={`/DeathEmpire/lore/${chapter.slug}/`} class="card-link">{chapter.titleEn}</a>
+              </h3>
+              <p class="text-gold" style="font-size: var(--text-sm); margin-top: var(--space-1); margin-bottom: 0;">{chapter.subtitleEn}</p>
             </div>
             <div class="card-body">
-              <p>{chapter.summary}</p>
+              <p>{chapter.summaryEn}</p>
               <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
-                {chapter.keywords.map(kw => (
-                  <span class="status-badge status-dev">{kw}</span>
-                ))}
+                <span class="status-badge status-completed">{chapter.status === 'canon' ? 'Canon' : 'In development'}</span>
+                {chapter.readingMinutes && <span class="status-badge status-dev">≈ {chapter.readingMinutes} min read</span>}
               </div>
+              <p style="margin-top: var(--space-3); margin-bottom: 0;">
+                <a href={`/DeathEmpire/lore/${chapter.slug}/`}>{chapter.hasFullText ? 'Read chapter →' : 'Open record →'}</a>
+              </p>
             </div>
           </article>
         ))}
       </div>
-      <p class="note" style="margin-top: var(--space-6);">Documento normativo principal: <code>LORE_CANON.md</code>.</p>
+      <p class="note" style="margin-top: var(--space-6);">Chapters 1–5 carry the complete canonical narrative. Chapters 6–10 open with their record while full text integration continues.</p>
     </section>
 
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/">Back to home</a> · <a href="/DeathEmpire/world/">Discover the World</a></p>
     </footer>
   </article>
 </BaseLayout>

@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'DeathEmpire';
+const description = 'Un imperio fracturado por antiguas lealtades, poder prohibido y la corrupción persistente del Maná Salvaje.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/" esPath="/DeathEmpire/es/">
+  <article class="home-portal">
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-badge">
+          <span class="badge-icon" aria-hidden="true">✦</span>
+          <span>UN MUNDO INDEPENDIENTE DE FANTASÍA OSCURA</span>
+        </span>
+      </div>
+
+      <h1 class="hero-title">DEATHEMPIRE</h1>
+
+      <div class="hero-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-emblem">⚔</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <p class="hero-tagline">
+        Un imperio fracturado por antiguas lealtades, poder prohibido
+        y la corrupción persistente del Maná Salvaje.
+      </p>
+
+      <div class="hero-cta">
+        <a href="/DeathEmpire/es/lore/" class="btn btn-primary btn-lg">Explorar el Lore</a>
+        <a href="/DeathEmpire/es/world/" class="btn btn-secondary btn-lg">Descubrir el Mundo</a>
+      </div>
+
+      <p class="hero-signature">En desarrollo activo · Creado por Kramsuiakari</p>
+
+      <!-- Métricas / Estado del mundo -->
+      <div class="hero-metrics" role="region" aria-label="Panorama del mundo">
+        <div class="metric-item">
+          <span class="metric-value">5</span>
+          <span class="metric-label">capítulos del archivo</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="metric-value">7</span>
+          <span class="metric-label">facciones conocidas</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="metric-value">3</span>
+          <span class="metric-label">crónicas del imperio</span>
+        </div>
+        <span class="metric-separator" aria-hidden="true">·</span>
+        <div class="metric-item">
+          <span class="status-badge status-in-progress">En desarrollo activo</span>
+          <span class="metric-label">estado del proyecto</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Secciones Principales -->
+    <section class="cards-section" aria-labelledby="cards-section-heading">
+      <div class="section-header">
+        <span class="section-eyebrow">EL ARCHIVO</span>
+        <h2 id="cards-section-heading">Un mundo moldeado por memoria, ruina, poder y consecuencia</h2>
+        <p class="section-subline">Entra por el lore, las facciones y el gameplay — y sigue después las crónicas de su creación.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- 1. Lore -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Narrativa</span>
+            <span class="card-meta">5 Capítulos</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/lore/" class="card-link">Lore y Capítulos</a>
+          </h3>
+          <p class="card-description">
+            Cinco capítulos canónicos: la Era del Esplendor, el Despertar del Maná, el Cielo que Cayó, las Bestias del Espacio y el Hijo del Invocador.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Explorar lore</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 2. Mundo y Facciones -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Mundo</span>
+            <span class="card-meta">7 Facciones</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/world/" class="card-link">Mundo y Facciones</a>
+          </h3>
+          <p class="card-description">
+            <strong>7 facciones documentadas</strong>: la Inquisición del Maná, los Cazadores Estelares, las Legiones Remanentes, el Culto del Maná Salvaje, el Gremio de Artesanos, los Supervivientes Libres y el Enjambre de las Bestias.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Conocer el mundo</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 3. Gameplay -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Experiencia</span>
+            <span class="card-meta">Pilares</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/gameplay/" class="card-link">Gameplay</a>
+          </h3>
+          <p class="card-description">
+            Combate y especialización, exploración y riesgo, facciones y reputación, equipo y progresión — cada decisión deja consecuencia.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Ver gameplay</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 4. Crónicas -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Desarrollo</span>
+            <span class="card-meta">Notas</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/chronicles/" class="card-link">Crónicas</a>
+          </h3>
+          <p class="card-description">
+            Notas de la creación de DeathEmpire: el archivo, los cimientos y las primeras miradas al viejo Imperio.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Leer crónicas</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 5. El Proyecto -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Visión</span>
+            <span class="card-meta">Proyecto</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/project/" class="card-link">El Proyecto</a>
+          </h3>
+          <p class="card-description">
+            Un proyecto independiente de fantasía oscura en desarrollo activo, creado y dirigido por Kramsuiakari. Privado por defecto, abierto a colaboraciones significativas.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Conocer el proyecto</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+
+        <!-- 6. Estado del desarrollo -->
+        <article class="portal-card">
+          <div class="card-eyebrow">
+            <span class="card-tag">Avance</span>
+            <span class="card-meta">Estado</span>
+          </div>
+          <h3 class="card-title">
+            <a href="/DeathEmpire/es/status/" class="card-link">Estado del Desarrollo</a>
+          </h3>
+          <p class="card-description">
+            El mundo, sus sistemas y sus cimientos se están moldeando para futuras pruebas cerradas. La disponibilidad pública aún no ha sido anunciada.
+          </p>
+          <div class="card-action" aria-hidden="true">
+            <span class="action-text">Seguir el desarrollo</span>
+            <span class="action-arrow">→</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Colaboración -->
+    <footer class="home-footer">
+      <div class="footer-cta-card">
+        <h3>Ayuda a construir algo duradero</h3>
+        <p>DeathEmpire se desarrolla de forma independiente y privada, pero una colaboración significativa puede tomar muchas formas: trabajo creativo, mirada técnica, pruebas y apoyo.</p>
+        <div class="footer-cta-buttons">
+          <a href="/DeathEmpire/es/collaborate/" class="btn btn-secondary">Colaborar con DeathEmpire</a>
+          <a href="/DeathEmpire/es/project/" class="btn btn-outline">Conocer el proyecto</a>
+        </div>
+      </div>
+      <p class="disclaimer">DeathEmpire está en desarrollo activo. No representa disponibilidad pública de juego en servidor ni afiliación comercial con Mojang / Microsoft.</p>
+    </footer>
+  </article>
+</BaseLayout>

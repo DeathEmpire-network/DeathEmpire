@@ -1,88 +1,55 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'Repositorios del Ecosistema';
-const description = 'Repositorios oficiales del ecosistema DeathEmpire definidos en repos.yaml.';
+const title = 'Open Development Workspaces';
+const description = 'DeathEmpire is developed in the open: follow progress, share ideas or explore the technical foundations.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/repositories/" esPath="/DeathEmpire/es/repositories/">
   <article>
     <header>
-      <h1>Repositorios del Ecosistema</h1>
-      <p>Definidos en <code>repos.yaml</code> como fuente única de verdad para la coordinación de código.</p>
+      <p class="section-eyebrow">OPEN DEVELOPMENT</p>
+      <h1>Open Development Workspaces</h1>
+      <p>DeathEmpire is developed in the open. Anyone who wants to follow progress, share ideas or understand the technical foundations can explore the project workspaces.</p>
     </header>
 
     <section>
-      <h2>Repositorios Canónicos</h2>
+      <h2>Public Workspaces</h2>
       <div class="grid grid-2" style="margin-top: var(--space-6);">
         <article class="card">
-          <div class="card-header">
-            <h3>Global-Tracker</h3>
-          </div>
+          <div class="card-header"><h3>Global-Tracker</h3></div>
           <div class="card-body">
-            <p>Monitoreo, releases, arquitectura global, gobernanza y scripts de coordinación inter-repositorio.</p>
-            <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Ver en GitHub ↗</a>
+            <p>Coordination, releases and the global view of the ecosystem.</p>
+            <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener" class="btn btn-outline btn-sm">View on GitHub ↗</a>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>DeathEmpire</h3>
-          </div>
+          <div class="card-header"><h3>DeathEmpire Site</h3></div>
           <div class="card-body">
-            <p>Sitio público del ecosistema (Astro SSG), compendio de lore, especificación del mundo y documentación pública.</p>
-            <a href="https://github.com/DeathEmpire-network/DeathEmpire" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Ver en GitHub ↗</a>
+            <p>The public archive, the chronicles and this presentation of DeathEmpire.</p>
+            <a href="https://github.com/DeathEmpire-network/DeathEmpire" target="_blank" rel="noopener" class="btn btn-outline btn-sm">View on GitHub ↗</a>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Actions</h3>
-          </div>
+          <div class="card-header"><h3>Game Services</h3></div>
           <div class="card-body">
-            <p>CI/CD privado, pipelines de automatización y entornos efímeros de pruebas in-game.</p>
-            <span class="status-badge status-dev">CI/CD Privado</span>
+            <p>The services that sustain the project's systems: persistence, orchestration and auditing.</p>
+            <span class="status-badge status-dev">Internal workspace</span>
           </div>
         </article>
-
         <article class="card">
-          <div class="card-header">
-            <h3>Backend</h3>
-          </div>
+          <div class="card-header"><h3>World Infrastructure</h3></div>
           <div class="card-body">
-            <p>API gRPC, persistencia en PostgreSQL, orquestación de instancias, autenticación y auditoría de red.</p>
-            <span class="status-badge status-completed">63/63 Tests OK</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <h3>Folia-Fork</h3>
-          </div>
-          <div class="card-body">
-            <p>Servidor regionalizado basado en PaperMC/Folia con extensiones gRPC dedicadas para sincronización de entidades.</p>
-            <span class="status-badge status-in-progress">Upstream 26.2.x</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <h3>Velocity-Fork</h3>
-          </div>
-          <div class="card-body">
-            <p>Proxy distribuido basado en PaperMC/Velocity con integración directa al Instance Registry.</p>
-            <span class="status-badge status-dev">En Integración</span>
+            <p>Internal tooling and configuration to operate test environments.</p>
+            <span class="status-badge status-dev">Internal workspace</span>
           </div>
         </article>
       </div>
-
-      <div class="alert alert-info" style="margin-top: var(--space-8);">
-        <strong>Plugins Planificados:</strong> <code>deathempire-core</code>, <code>deathempire-economy</code>, <code>deathempire-worldgen</code>, <code>deathempire-crafting</code>.
-      </div>
+      <p class="note" style="margin-top: var(--space-6);">Internal workspaces stay private. Public ones are linked above when the project chooses to share them.</p>
     </section>
 
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/project/">Back to The Project</a> · <a href="/DeathEmpire/collaborate/">Collaborate</a></p>
     </footer>
   </article>
 </BaseLayout>

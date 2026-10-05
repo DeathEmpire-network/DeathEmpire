@@ -1,69 +1,37 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'Estado del Proyecto';
-const description = 'Auditoría técnica, suites de tests y seguimiento de Critical Gaps de DeathEmpire.';
+const title = 'Development Status';
+const description = 'DeathEmpire is in active development, building foundational systems for future closed testing.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/status/" esPath="/DeathEmpire/es/status/">
   <article>
     <header>
-      <h1>Estado del Proyecto DeathEmpire</h1>
-      <p>Auditoría técnica de componentes, suites de tests e integración distribuida.</p>
+      <p class="section-eyebrow">DEVELOPMENT STATUS</p>
+      <h1>Active Development</h1>
+      <p>DeathEmpire is currently being built and refined. Public gameplay access has not yet been announced.</p>
     </header>
 
     <section>
-      <h2>Métricas y Verificaciones</h2>
-      <div class="grid grid-2" style="margin-top: var(--space-6);">
-        <article class="card">
-          <div class="card-header">
-            <h3>Backend gRPC</h3>
-          </div>
-          <div class="card-body">
-            <p><strong>63/63 tests superados</strong> (100% passing). API gRPC operativa, base de datos PostgreSQL configurada y pipeline de autenticación activo.</p>
-            <span class="status-badge status-completed">Tests OK</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <h3>Folia-Fork</h3>
-          </div>
-          <div class="card-body">
-            <p>Builds y tests automáticos operativos. Servidor regionalizado basado en PaperMC/Folia con extensiones gRPC personalizadas. Upstream 26.2.x en PR.</p>
-            <span class="status-badge status-in-progress">PR en curso</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <h3>Velocity-Fork</h3>
-          </div>
-          <div class="card-body">
-            <p>Proxy distribuido con Instance Registry y balanceo. Integración gRPC con el Backend en fase de desarrollo.</p>
-            <span class="status-badge status-dev">En Desarrollo</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <h3>Global-Tracker</h3>
-          </div>
-          <div class="card-body">
-            <p>Coordinación central del ecosistema, gestión de releases y gobernanza de dependencias y arquitectura documental.</p>
-            <span class="status-badge status-completed">Activo</span>
-          </div>
-        </article>
-      </div>
+      <h2>Current Focus</h2>
+      <ul>
+        <li>✓ Public world and lore presentation</li>
+        <li>✓ Core project foundations</li>
+        <li>◐ Gameplay system development <span class="status-badge status-dev">In development</span></li>
+        <li>◐ Controlled test environments <span class="status-badge status-dev">In development</span></li>
+        <li>○ Closed alpha preparation <span class="status-badge status-planned">Planned</span></li>
+      </ul>
     </section>
 
     <section>
-      <h2>Seguimiento de Critical Gaps</h2>
-      <p>Actualmente se encuentran documentados <strong>8 Critical Gaps</strong> en la arquitectura técnica, orientados a la sincronización de estado regional y la validación end-to-end.</p>
+      <h2>What Comes Next</h2>
+      <p>The next stage is focused on strengthening core systems, refining the world archive and preparing future testing paths.</p>
+      <p><a href="/DeathEmpire/roadmap/" class="btn btn-secondary btn-sm">View Roadmap</a></p>
     </section>
 
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/project/">Back to The Project</a> · <a href="/DeathEmpire/chronicles/">Follow the Chronicles</a></p>
     </footer>
   </article>
 </BaseLayout>

@@ -1,43 +1,35 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const title = 'Contribuir a DeathEmpire';
-const description = 'Cómo participar en el desarrollo del ecosistema DeathEmpire: repositorios, ramas, Pull Requests y normas de seguridad.';
+const title = 'Technical Collaboration Path';
+const description = 'The technical route for collaborating with DeathEmpire: workspaces, branches, pull requests and security rules.';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/contributing/" esPath="/DeathEmpire/es/contributing/">
   <article>
     <header>
-      <h1>Contribuir a DeathEmpire</h1>
-      <p>Cómo participar en el desarrollo del proyecto.</p>
+      <p class="section-eyebrow">FOR TECHNICAL READERS</p>
+      <h1>Technical Collaboration Path</h1>
+      <p>This is the technical route. If you are looking for creative, testing or support collaboration, start at <a href="/DeathEmpire/collaborate/">Collaborate</a>.</p>
     </header>
     <section>
-      <h2>Repositorios del Ecosistema</h2>
-      <p>El proyecto utiliza múltiples repositorios definidos en <code>repos.yaml</code> (fuente de verdad única):</p>
-      <ul>
-        <li><strong>Global-Tracker</strong> — Coordinación, releases, arquitectura, scripts</li>
-        <li><strong>DeathEmpire</strong> — Sitio público, lore, mundo, arquitectura, roadmap</li>
-        <li><strong>Actions</strong> — CI/CD privado y pruebas efímeras de integración in-game</li>
-        <li><strong>Backend</strong> — gRPC API, PostgreSQL, orquestación, auth, auditoría</li>
-        <li><strong>Folia-Fork</strong> — Servidor Folia personalizado con integración gRPC (upstream: PaperMC/Folia)</li>
-        <li><strong>Velocity-Fork</strong> — Proxy Velocity personalizado con Instance Registry gRPC (upstream: PaperMC/Velocity)</li>
-      </ul>
-      <p>Plugins planificados (creación bajo demanda): <code>deathempire-core</code>, <code>deathempire-economy</code>, <code>deathempire-worldgen</code>, <code>deathempire-crafting</code>.</p>
+      <h2>Workspaces</h2>
+      <p>The project is organized in coordinated workspaces: coordination, public site, private automation, game services, regional servers and entry proxy. Public workspaces are listed under <a href="/DeathEmpire/repositories/">Open Development</a>.</p>
     </section>
     <section>
-      <h2>Ramas de Trabajo</h2>
-      <p>Se utilizan ramas <code>feature/*</code> para nuevo desarrollo y <code>bugfix/*</code> para correcciones. Las Pull Requests deben dirigirse a la rama <code>main</code> de cada repositorio correspondiente.</p>
+      <h2>Working Branches</h2>
+      <p>Use dedicated branches per change, opened from the corresponding main branch. Small, reviewable branches are preferred over large rewrites.</p>
     </section>
     <section>
       <h2>Pull Requests</h2>
-      <p>Las Pull Requests son el mecanismo principal para incorporar cambios. Se revisa por pares y deben pasar las validaciones de CI antes de ser mergeadas. Las features marcadas como <strong>DISEÑADO</strong> en <a href="/DeathEmpire/status/">FEATURE_REGISTRY</a> deben considerarse experimentales hasta su validación completa.</p>
+      <p>Pull requests are the main way to land changes. They are peer-reviewed and must pass automated validations before merging. Features still marked as designed should be treated as experimental until fully validated.</p>
     </section>
     <section>
-      <h2>No Publicar Secretos</h2>
-      <p>No se deben publicar secretos, tokens, IPs u otra información operativa en la documentación pública.</p>
+      <h2>Never Publish Secrets</h2>
+      <p>Never publish secrets, tokens, IPs or other operational information in public documentation.</p>
     </section>
     <footer>
-      <p><a href="/DeathEmpire/">Volver al inicio</a></p>
+      <p><a href="/DeathEmpire/collaborate/">Back to Collaborate</a> · <a href="/DeathEmpire/project/">The Project</a></p>
     </footer>
   </article>
 </BaseLayout>

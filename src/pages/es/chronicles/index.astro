@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Crónicas de DeathEmpire';
+const description = 'Notas del desarrollo de DeathEmpire: el archivo, los cimientos y el viejo Imperio.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/chronicles/" esPath="/DeathEmpire/es/chronicles/">
+  <article>
+    <header>
+      <p class="section-eyebrow">CRÓNICAS</p>
+      <h1>Crónicas del Imperio</h1>
+      <p>Notas del desarrollo de DeathEmpire.</p>
+    </header>
+
+    <section>
+      <h2>Últimas</h2>
+      <div class="grid" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">02 OCT 2026 · DESARROLLO</p>
+            <h3>El Archivo toma su próxima forma</h3>
+          </div>
+          <div class="card-body">
+            <p>Una nueva dirección editorial para el lore, el worldbuilding y el descubrimiento: el sitio ahora habla primero a los visitantes y después a quienes lo construyen.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">28 SEP 2026 · ESTADO DEL PROYECTO</p>
+            <h3>Cimientos para un desarrollo protegido</h3>
+          </div>
+          <div class="card-body">
+            <p>El proyecto avanza con un proceso de revisión y entrega más sólido, manteniendo el canon en Git y lo vivo listo para su momento.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header">
+            <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">20 SEP 2026 · MUNDO</p>
+            <h3>Una primera mirada a los restos del viejo Imperio</h3>
+          </div>
+          <div class="card-body">
+            <p>Ruinas, fronteras y las manchas del Maná Salvaje: el mundo que queda, esperando a ser explorado.</p>
+          </div>
+        </article>
+      </div>
+      <p class="note" style="margin-top: var(--space-6);">Las crónicas empiezan como notas estáticas. Los anuncios dinámicos llegarán después sin reconstruir el sitio.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/">Volver al inicio</a> · <a href="/DeathEmpire/es/project/">Conocer el proyecto</a></p>
+    </footer>
+  </article>
+</BaseLayout>

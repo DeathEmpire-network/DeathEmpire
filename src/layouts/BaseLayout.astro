@@ -1,35 +1,41 @@
 ---
 // BaseLayout.astro - Layout base para todas las páginas
 import '../styles/global.css';
+import LanguageSelector from '../components/LanguageSelector.astro';
+import { en } from '../i18n/en';
+import { es as esDict } from '../i18n/es';
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
   canonical?: string;
+  lang?: 'en' | 'es';
+  enPath?: string;
+  esPath?: string;
 }
 
 const {
   title,
-  description = 'DeathEmpire es un ecosistema de Minecraft persistente que combina lore, mundos, gameplay, Backend, Folia y Velocity en desarrollo.',
+  description: propDescription,
   ogImage = '/DeathEmpire/og-default.png',
-  canonical
+  canonical,
+  lang = 'en',
+  enPath,
+  esPath,
 } = Astro.props;
+
+const t = lang === 'es' ? esDict : en;
+const description = propDescription ?? t.meta.defaultDescription;
 
 const pageUrl = canonical || Astro.url.pathname;
 const fullUrl = new URL(pageUrl, 'https://deathempire-network.github.io').href;
 const fullOgImage = new URL(ogImage, 'https://deathempire-network.github.io').href;
+const fullEn = enPath ? new URL(enPath, 'https://deathempire-network.github.io').href : undefined;
+const fullEs = esPath ? new URL(esPath, 'https://deathempire-network.github.io').href : undefined;
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
 
-const navItems = [
-  { href: '/DeathEmpire/lore/', label: 'Lore' },
-  { href: '/DeathEmpire/world/', label: 'Mundo' },
-  { href: '/DeathEmpire/gameplay/', label: 'Gameplay' },
-  { href: '/DeathEmpire/architecture/', label: 'Arquitectura' },
-  { href: '/DeathEmpire/status/', label: 'Estado' },
-  { href: '/DeathEmpire/roadmap/', label: 'Roadmap' },
-  { href: '/DeathEmpire/repositories/', label: 'Repositorios' },
-  { href: '/DeathEmpire/contributing/', label: 'Contribuir' },
-];
+const navItems = t.nav;
 
 const normalizedPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => {
@@ -42,7 +48,7 @@ const isCurrent = (href: string) => {
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,6 +58,9 @@ const isCurrent = (href: string) => {
     <title>{title} | DeathEmpire</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={fullUrl} />
+    {fullEn && <link rel="alternate" hreflang="en" href={fullEn} />}
+    {fullEs && <link rel="alternate" hreflang="es" href={fullEs} />}
+    {fullEn && <link rel="alternate" hreflang="x-default" href={fullEn} />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -60,7 +69,7 @@ const isCurrent = (href: string) => {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullOgImage} />
     <meta property="og:site_name" content="DeathEmpire" />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -93,20 +102,20 @@ const isCurrent = (href: string) => {
   </head>
   <body class="page-{Astro.url.pathname.replace(/\//g, '-').replace(/^-|-$/g, '') || 'home'}">
     <!-- Skip link para accesibilidad -->
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <a href="#main-content" class="skip-link">{t.ui.skipToContent}</a>
 
     <!-- Header -->
     <header class="site-header" role="banner">
       <div class="container header-inner">
         <!-- Logo / Brand -->
-        <a href="/DeathEmpire/" class="site-logo" aria-label="DeathEmpire - Inicio">
+        <a href={lang === 'es' ? '/DeathEmpire/es/' : '/DeathEmpire/'} class="site-logo" aria-label={t.header.homeLabel}>
           <span class="logo-icon" aria-hidden="true">⚔</span>
           <span class="logo-text">DeathEmpire</span>
         </a>
 
         <!-- Navegación principal -->
-        <nav class="main-nav site-nav" role="navigation" aria-label="Navegación principal">
-          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú">
+        <nav class="main-nav site-nav" role="navigation" aria-label={t.ui.mainNav}>
+          <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label={t.ui.openMenu}>
             <span class="hamburger" aria-hidden="true"></span>
           </button>
           <ul id="nav-menu" class="nav-menu" role="menubar">
@@ -128,9 +137,15 @@ const isCurrent = (href: string) => {
           </ul>
         </nav>
 
+        {enPath && esPath && (
+          <div class="header-lang">
+            <LanguageSelector lang={lang} enPath={enPath} esPath={esPath} />
+          </div>
+        )}
+
         <!-- CTA desktop / header -->
         <div class="header-cta">
-          <a href="/DeathEmpire/lore/" class="btn btn-primary btn-sm">Explorar Lore</a>
+          <a href={t.header.ctaHref} class="btn btn-primary btn-sm">{t.header.cta}</a>
         </div>
       </div>
     </header>
@@ -148,55 +163,53 @@ const isCurrent = (href: string) => {
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="/DeathEmpire/" class="logo" aria-label="DeathEmpire - Inicio">
+            <a href={lang === 'es' ? '/DeathEmpire/es/' : '/DeathEmpire/'} class="logo" aria-label={t.header.homeLabel}>
               <span class="logo-icon" aria-hidden="true">⚔</span>
               <span class="logo-text">DeathEmpire</span>
             </a>
-            <p>Un ecosistema de Minecraft persistente que combina narrativa de fantasía oscura, arquitectura distribuida y gameplay emergente.</p>
+            <p>{t.footer.tagline}</p>
           </div>
 
-          <nav class="footer-nav" aria-label="Navegación principal">
-            <h4>Explorar</h4>
+          <nav class="footer-nav" aria-label={t.footer.exploreTitle}>
+            <h4>{t.footer.exploreTitle}</h4>
             <ul>
-              <li><a href="/DeathEmpire/lore/">Lore y Capítulos</a></li>
-              <li><a href="/DeathEmpire/world/">Mundo y Facciones</a></li>
-              <li><a href="/DeathEmpire/gameplay/">Gameplay</a></li>
+              {t.footer.explore.map(item => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
             </ul>
           </nav>
 
-          <nav class="footer-nav" aria-label="Técnico">
-            <h4>Técnico</h4>
+          <nav class="footer-nav" aria-label={t.footer.projectTitle}>
+            <h4>{t.footer.projectTitle}</h4>
             <ul>
-              <li><a href="/DeathEmpire/architecture/">Arquitectura</a></li>
-              <li><a href="/DeathEmpire/status/">Estado</a></li>
-              <li><a href="/DeathEmpire/roadmap/">Roadmap</a></li>
-              <li><a href="/DeathEmpire/repositories/">Repositorios</a></li>
+              {t.footer.project.map(item => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
             </ul>
           </nav>
 
-          <nav class="footer-nav" aria-label="Comunidad y enlaces">
-            <h4>Comunidad</h4>
+          <nav class="footer-nav" aria-label={t.footer.connectTitle}>
+            <h4>{t.footer.connectTitle}</h4>
             <ul>
-              <li><a href="/DeathEmpire/contributing/">Contribuir</a></li>
-              <li><a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">Global-Tracker</a></li>
-              <li><a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">Organización GitHub</a></li>
+              {t.footer.connect.map(item => (
+                <li><a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener' : undefined}>{item.label}</a></li>
+              ))}
             </ul>
           </nav>
         </div>
 
         <div class="footer-bottom">
-          <p>DeathEmpire está en desarrollo. No representa disponibilidad pública del servidor.</p>
+          <p>{t.footer.note}</p>
           <div class="footer-links">
-            <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener">GitHub</a>
-            <a href="#privacy">Privacidad</a>
-            <a href="#terms">Términos</a>
+            <a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">GitHub</a>
+            <span class="footer-lang">{t.footer.languageLabel}</span>
           </div>
         </div>
       </div>
     </footer>
 
     <!-- Back to top -->
-    <button class="back-to-top" aria-label="Volver arriba" title="Volver arriba">
+    <button class="back-to-top" aria-label={t.ui.backToTop} title={t.ui.backToTop}>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M18 15l-6-6-6 6"/>
       </svg>
@@ -356,6 +369,17 @@ const isCurrent = (href: string) => {
     display: flex;
     align-items: center;
     flex-shrink: 0;
+  }
+
+  .header-lang {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .footer-lang {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
   }
 
   @media (max-width: 1080px) {

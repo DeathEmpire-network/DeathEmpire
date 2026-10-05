@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { tome, chapters } from '../../../data/book/tome1';
+
+const title = 'El Archivo de DeathEmpire';
+const description = 'Tomo I: diez capítulos canónicos, del Esplendor al Niño del Nivel 78.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/lore/" esPath="/DeathEmpire/es/lore/">
+  <article>
+    <header>
+      <p class="section-eyebrow">EL ARCHIVO</p>
+      <h1>{tome.titleEs}</h1>
+      <p>{tome.subtitleEs}. Crónicas de un imperio moldeado por la memoria, la traición, el poder prohibido y el costo de sobrevivir.</p>
+    </header>
+
+    <section>
+      <h2>Capítulos del Tomo I</h2>
+      <div class="grid" style="margin-top: var(--space-6);">
+        {chapters.map((chapter) => (
+          <article class="card">
+            <div class="card-header">
+              <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">Capítulo {chapter.order} · {chapter.periodEs}</p>
+              <h3>
+                <a href={`/DeathEmpire/es/lore/${chapter.slug}/`} class="card-link">{chapter.titleEs}</a>
+              </h3>
+              <p class="text-gold" style="font-size: var(--text-sm); margin-top: var(--space-1); margin-bottom: 0;">{chapter.subtitleEs}</p>
+            </div>
+            <div class="card-body">
+              <p>{chapter.summaryEs}</p>
+              <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
+                <span class="status-badge status-completed">{chapter.status === 'canon' ? 'Canónico' : 'En desarrollo'}</span>
+                {chapter.readingMinutes && <span class="status-badge status-dev">≈ {chapter.readingMinutes} min de lectura</span>}
+              </div>
+              <p style="margin-top: var(--space-3); margin-bottom: 0;">
+                <a href={`/DeathEmpire/es/lore/${chapter.slug}/`}>{chapter.hasFullText ? 'Leer capítulo →' : 'Abrir ficha →'}</a>
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="note" style="margin-top: var(--space-6);">Los capítulos 1–5 traen la narrativa canónica completa. Los capítulos 6–10 abren con su ficha mientras continúa la integración del texto.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/">Volver al inicio</a> · <a href="/DeathEmpire/es/world/">Descubrir el Mundo</a></p>
+    </footer>
+  </article>
+</BaseLayout>

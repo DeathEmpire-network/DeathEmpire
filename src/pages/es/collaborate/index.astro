@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Colaborar con DeathEmpire';
+const description = 'DeathEmpire es privado por defecto y está abierto a colaboraciones significativas: creativas, técnicas, de pruebas y de apoyo.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/collaborate/" esPath="/DeathEmpire/es/collaborate/">
+  <article>
+    <header>
+      <p class="section-eyebrow">COLABORAR</p>
+      <h1>Ayuda a construir algo duradero</h1>
+      <p>DeathEmpire se desarrolla de forma independiente y privada, pero una colaboración significativa puede tomar muchas formas.</p>
+    </header>
+
+    <section>
+      <h2>Cómo Puedes Aportar</h2>
+      <div class="grid grid-2" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header"><h3>✒ Trabajo Creativo</h3></div>
+          <div class="card-body"><p>Ayuda a dar forma al mundo, sus historias y su identidad visual: lore, escritura, arte y worldbuilding.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>⚙ Colaboración Técnica</h3></div>
+          <div class="card-body"><p>Comparte experiencia técnica, revisión o ideas de herramientas. <a href="/DeathEmpire/es/contributing/">Lee la ruta técnica</a>.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>🔮 Pruebas y Feedback</h3></div>
+          <div class="card-body"><p>Ayuda a detectar fricción, errores y oportunidades antes de cualquier alpha. Registra tu interés en futuras pruebas.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>🤝 Apoyo y Alianzas</h3></div>
+          <div class="card-body"><p>Explora formas responsables de apoyar el proyecto. Los canales oficiales se anunciarán cuando estén listos.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Una Nota sobre el Acceso</h2>
+      <p>DeathEmpire es privado por defecto. Mostrar interés no concede acceso a código interno, infraestructura, servidores ni material confidencial. Cada propuesta se evalúa de forma individual, definiendo el acceso mínimo necesario solo cuando corresponda.</p>
+      <p>
+        <a href="/DeathEmpire/es/project/" class="btn btn-secondary btn-sm">Conocer el proyecto</a>
+        <a href="/DeathEmpire/es/chronicles/" class="btn btn-outline btn-sm">Seguir el proyecto</a>
+      </p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/">Volver al inicio</a></p>
+    </footer>
+  </article>
+</BaseLayout>

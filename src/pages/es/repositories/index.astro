@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = 'Espacios Abiertos de Desarrollo';
+const description = 'DeathEmpire se desarrolla de forma abierta: sigue el progreso, comparte ideas o explora las bases técnicas.';
+---
+
+<BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/repositories/" esPath="/DeathEmpire/es/repositories/">
+  <article>
+    <header>
+      <p class="section-eyebrow">DESARROLLO ABIERTO</p>
+      <h1>Espacios Abiertos de Desarrollo</h1>
+      <p>DeathEmpire se desarrolla de forma abierta. Quien quiera seguir el progreso, aportar ideas o conocer las bases técnicas puede explorar los espacios de trabajo del proyecto.</p>
+    </header>
+
+    <section>
+      <h2>Espacios Públicos</h2>
+      <div class="grid grid-2" style="margin-top: var(--space-6);">
+        <article class="card">
+          <div class="card-header"><h3>Global-Tracker</h3></div>
+          <div class="card-body">
+            <p>Coordinación, releases y la visión global del ecosistema.</p>
+            <a href="https://github.com/DeathEmpire-network/Global-Tracker" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Ver en GitHub ↗</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Sitio DeathEmpire</h3></div>
+          <div class="card-body">
+            <p>El archivo público, las crónicas y esta presentación de DeathEmpire.</p>
+            <a href="https://github.com/DeathEmpire-network/DeathEmpire" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Ver en GitHub ↗</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Servicios del Juego</h3></div>
+          <div class="card-body">
+            <p>Los servicios que sostienen los sistemas del proyecto: persistencia, orquestación y auditoría.</p>
+            <span class="status-badge status-dev">Espacio interno</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-header"><h3>Infraestructura del Mundo</h3></div>
+          <div class="card-body">
+            <p>Herramientas internas y configuración para operar entornos de prueba.</p>
+            <span class="status-badge status-dev">Espacio interno</span>
+          </div>
+        </article>
+      </div>
+      <p class="note" style="margin-top: var(--space-6);">Los espacios internos permanecen privados. Los públicos se enlazan arriba cuando el proyecto decide compartirlos.</p>
+    </section>
+
+    <footer>
+      <p><a href="/DeathEmpire/es/project/">Volver a El Proyecto</a> · <a href="/DeathEmpire/es/collaborate/">Colaborar</a></p>
+    </footer>
+  </article>
+</BaseLayout>
