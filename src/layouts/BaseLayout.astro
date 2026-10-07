@@ -78,11 +78,6 @@ const isCurrent = (href: string) => {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullOgImage} />
 
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-
     <!-- Favicon (SVG para todos los tamaños - soporte moderno) -->
     <link rel="icon" type="image/svg+xml" href="/DeathEmpire/favicon.svg" />
     <link rel="alternate icon" href="/DeathEmpire/favicon.ico" />
@@ -306,15 +301,16 @@ const isCurrent = (href: string) => {
     display: inline-flex;
     align-items: center;
     padding: 0.4rem 0.65rem;
-    font-family: var(--font-display);
-    font-size: var(--text-sm);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
     font-weight: 500;
     color: var(--color-text-primary);
     text-decoration: none;
     border-radius: var(--radius-md);
     transition: color var(--transition-fast), background-color var(--transition-fast);
     position: relative;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
     line-height: 1.2;
   }
 
