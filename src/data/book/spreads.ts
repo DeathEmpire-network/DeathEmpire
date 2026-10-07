@@ -19,10 +19,8 @@ const ui = {
     dev: 'In development',
     minRead: (m: number) => `≈ ${m} min read`,
     preparing: 'Full text in preparation',
-    editionFull: 'ENGLISH EDITION · full translation in preparation',
-    editionRecord: 'ENGLISH EDITION · record',
-    leadNote:
-      'English edition in preparation. The canonical Spanish edition follows below.',
+    editionFull: '',
+    editionRecord: '',
     continued: '— continues',
     consequences: 'Consequences',
     keys: 'Keys',
@@ -45,7 +43,6 @@ const ui = {
     preparing: 'Texto completo en preparación',
     editionFull: 'EDICIÓN CANÓNICA',
     editionRecord: 'EDICIÓN CANÓNICA · ficha',
-    leadNote: undefined as string | undefined,
     continued: '— continúa',
     consequences: 'Consecuencias',
     keys: 'Claves',
@@ -222,10 +219,6 @@ export function buildSpread(slug: string, lang: Lang, spread: number): SpreadDat
     title: tx.title,
     subtitle: tx.subtitle,
     editionBadge: t.editionFull,
-    editionNote:
-      lang === 'en'
-        ? 'English edition in preparation. The canonical Spanish edition follows below.'
-        : undefined,
     statusBadge: ch.status === 'canon' ? t.canon : t.dev,
     readingNote: ch.readingMinutes ? t.minRead(ch.readingMinutes) : t.preparing,
   });

@@ -1,5 +1,37 @@
 /* DeathEmpire Design System - Global Styles */
 
+@font-face {
+  font-family: 'Cinzel';
+  src: url('../assets/fonts/cinzel-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../assets/fonts/eb-garamond-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../assets/fonts/eb-garamond-italic-variable.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   /* Colores principales - Paleta fantasía oscura */
   --color-bg-primary: #0a0a0a;
@@ -46,8 +78,9 @@
 
   /* Tipografías */
   --font-display: 'Cinzel', 'Georgia', serif;
-  --font-body: 'Crimson Text', 'Georgia', serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-body: 'EB Garamond', 'Georgia', serif;
+  --font-ui: 'Montserrat', 'Arial', sans-serif;
+  --font-mono: 'Cascadia Code', 'Consolas', monospace;
 
   /* Tamaños fluidos */
   --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
@@ -229,7 +262,7 @@ pre code {
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-size: var(--text-sm);
   font-weight: 600;
   padding: var(--space-3) var(--space-6);
@@ -239,6 +272,8 @@ pre code {
   transition: all var(--transition-normal);
   text-decoration: none;
   white-space: nowrap;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .btn-lg {
@@ -318,7 +353,7 @@ pre code {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font-family: var(--font-mono);
+  font-family: var(--font-ui);
   font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;

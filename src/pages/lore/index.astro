@@ -1,49 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { tome, chapters } from '../../data/book/tome1';
+import LoreArchive from '../../components/LoreArchive.astro';
 
 const title = 'The DeathEmpire Archive';
-const description = 'Tome I · The Fallen Sky: ten canonical chapters, from Splendor to the Level 78 Child.';
+const description = 'Explore the canonical tomes and chapters of DeathEmpire.';
 ---
 
 <BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/lore/" esPath="/DeathEmpire/es/lore/">
-  <article>
-    <header>
-      <p class="section-eyebrow">THE ARCHIVE</p>
-      <h1>{tome.titleEn}</h1>
-      <p>{tome.subtitleEn}. Chronicles of an empire shaped by memory, betrayal, forbidden power and the cost of survival.</p>
-    </header>
-
-    <section>
-      <h2>Chapters of Tome I</h2>
-      <div class="grid" style="margin-top: var(--space-6);">
-        {chapters.map((chapter) => (
-          <article class="card">
-            <div class="card-header">
-              <p class="text-muted" style="font-size: var(--text-sm); margin-bottom: var(--space-1);">Chapter {chapter.order} · {chapter.periodEn}</p>
-              <h3>
-                <a href={`/DeathEmpire/lore/${chapter.slug}/`} class="card-link">{chapter.titleEn}</a>
-              </h3>
-              <p class="text-gold" style="font-size: var(--text-sm); margin-top: var(--space-1); margin-bottom: 0;">{chapter.subtitleEn}</p>
-            </div>
-            <div class="card-body">
-              <p>{chapter.summaryEn}</p>
-              <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3);">
-                <span class="status-badge status-completed">{chapter.status === 'canon' ? 'Canon' : 'In development'}</span>
-                {chapter.readingMinutes && <span class="status-badge status-dev">≈ {chapter.readingMinutes} min read</span>}
-              </div>
-              <p style="margin-top: var(--space-3); margin-bottom: 0;">
-                <a href={`/DeathEmpire/lore/${chapter.slug}/`}>{chapter.hasFullText ? 'Read chapter →' : 'Open record →'}</a>
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
-      <p class="note" style="margin-top: var(--space-6);">Chapters 1–5 carry the complete canonical narrative. Chapters 6–10 open with their record while full text integration continues.</p>
-    </section>
-
-    <footer>
-      <p><a href="/DeathEmpire/">Back to home</a> · <a href="/DeathEmpire/world/">Discover the World</a></p>
-    </footer>
-  </article>
+  <LoreArchive lang="en" />
 </BaseLayout>

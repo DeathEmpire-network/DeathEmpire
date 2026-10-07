@@ -1,0 +1,9 @@
+# DeathEmpire Site — Code Owners
+
+* @Kramsuiakari
+/.github/ @Kramsuiakari
+/src/components/ @Kramsuiakari
+/src/data/book/ @Kramsuiakari
+/src/pages/lore/ @Kramsuiakari
+/src/pages/es/lore/ @Kramsuiakari
+/src/styles/ @Kramsuiakari
