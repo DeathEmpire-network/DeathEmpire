@@ -1,0 +1,262 @@
+---
+/**
+ * LoreReactions.astro - Componente de reacciones del Libro del Lore
+ * Fase 1: Fundación - Estado "no disponible" por defecto
+ * Sin <script>, sin client JS, solo render estático del estado "no disponible".
+ * Diseñado para insertarse al final de un capítulo del Libro.
+ */
+
+import type { LoreReactionCatalogEntry } from '../types/lore-reactions';
+import { LORE_REACTION_CATALOG } from '../data/lore/reactions-catalog';
+import type { LoreReactionCounts } from '../types/lore-reactions';
+
+interface Props {
+  /** Slug del capítulo (ej: 'chapter-1') - para futuro backend */
+  chapterSlug?: string;
+  /** Contadores por tipo de reacción (clave = kind) */
+  counts?: Record<string, number>;
+  /** Si true, muestra estado deshabilitado incluso si hay servicio */
+  disabled?: boolean;
+  /** Idioma para etiquetas (por defecto 'en') */
+  lang?: 'en' | 'es';
+  /** Mensaje personalizado cuando no está disponible */
+  unavailableMessage?: string;
+}
+
+const {
+  chapterSlug,
+  counts = {},
+  disabled = true,
+  lang = 'en',
+  unavailableMessage,
+} = Astro.props;
+
+const messages = {
+  en: {
+    unavailable: 'Reactions are not available yet.',
+    unavailableTitle: 'Reactions Unavailable',
+  },
+  es: {
+    unavailable: 'Las reacciones aún no están disponibles.',
+    unavailableTitle: 'Reacciones no disponibles',
+  },
+};
+
+const t = messages[lang];
+
+const defaultCounts = {
+  imperial_loyalty: 0,
+  mana_corruption: 0,
+  inquisitorial_alert: 0,
+  consumed_by_void: 0,
+};
+
+const mergedCounts: LoreReactionCounts = { ...defaultCounts, ...counts };
+const isActuallyDisabled = disabled || Object.keys(counts).length === 0;
+
+const unavailableMsg = unavailableMessage ?? t.unavailable;
+---
+
+<div
+  class="lore-reactions"
+  data-chapter-slug={chapterSlug}
+  data-disabled={isActuallyDisabled}
+  data-lang={lang}
+  aria-live="polite"
+  aria-atomic="true"
+>
+  <header class="lore-reactions__header">
+    <h3 class="lore-reactions__title">{unavailableMsg}</h3>
+    {isActuallyDisabled && (
+      <p class="lore-reactions__notice">
+        {lang === 'es'
+          ? 'Las reacciones se activarán cuando el backend esté configurado.'
+          : 'Reactions will be enabled once the backend is configured.'}
+      </p>
+    )}
+  </header>
+
+  <div class="lore-reactions__grid" role="group" aria-label={t.unavailableTitle}>
+    {LORE_REACTION_CATALOG.map((reaction: LoreReactionCatalogEntry) => (
+      <button
+        class={`lore-reactions__button ${isActuallyDisabled ? 'lore-reactions__button--disabled' : ''}`}
+        type="button"
+        disabled={isActuallyDisabled}
+        data-reaction-kind={reaction.kind}
+        aria-label={`${reaction.emoji} ${reaction[`label${lang.toUpperCase()}` as keyof LoreReactionCatalogEntry]}: {mergedCounts[reaction.kind] ?? 0}`}
+        aria-disabled={isActuallyDisabled}
+        aria-pressed="false"
+      >
+        <span class="lore-reactions__emoji" aria-hidden="true">{reaction.emoji}</span>
+        <span class="lore-reactions__label">
+          {lang === 'es' ? reaction.labelES : reaction.labelEN}
+        </span>
+        <span class="lore-reactions__count" aria-live="polite" aria-atomic="true">
+          {mergedCounts[reaction.kind] ?? 0}
+        </span>
+        <span class="lore-reactions__description" aria-hidden="true">
+          {lang === 'es' ? reaction.descriptionES : reaction.descriptionEN}
+        </span>
+      </button>
+    ))}
+  </div>
+
+  {isActuallyDisabled && (
+    <footer class="lore-reactions__footer">
+      <p class="lore-reactions__hint">
+        {lang === 'es'
+          ? 'Configura PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_PUBLISHABLE_KEY para habilitar reacciones.'
+          : 'Configure PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY to enable reactions.'}
+      </p>
+    </footer>
+  )}
+</div>
+
+<style>
+  .lore-reactions {
+    --reaction-bg: var(--color-bg-card);
+    --reaction-border: var(--color-border-default);
+    --reaction-text: var(--color-text-primary);
+    --reaction-muted: var(--color-text-muted);
+    --reaction-gold: var(--color-gold);
+    --reaction-radius: var(--radius-lg);
+    --reaction-gap: var(--space-4);
+    --reaction-padding: var(--space-5);
+
+    background: var(--reaction-bg);
+    border: 1px solid var(--reaction-border);
+    border-radius: var(--reaction-radius);
+    padding: var(--reaction-padding);
+    margin-top: var(--space-8);
+  }
+
+  .lore-reactions__header {
+    margin-bottom: var(--space-4);
+    text-align: center;
+  }
+
+  .lore-reactions__title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--color-gold);
+    margin: 0 0 var(--space-2);
+  }
+
+  .lore-reactions__notice {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .lore-reactions__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--reaction-gap);
+  }
+
+  @media (min-width: 640px) {
+    .lore-reactions__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .lore-reactions__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-3);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--reaction-border);
+    border-radius: var(--radius-md);
+    color: var(--reaction-text);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    text-align: center;
+    cursor: not-allowed;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .lore-reactions__button:not(.lore-reactions__button--disabled):hover,
+  .lore-reactions__button:not(.lore-reactions__button--disabled):focus-visible {
+    border-color: var(--color-gold);
+    background: var(--color-bg-tertiary);
+    cursor: pointer;
+  }
+
+  .lore-reactions__button--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .lore-reactions__button:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  .lore-reactions__emoji {
+    font-size: 1.75rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+
+  .lore-reactions__label {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gold);
+  }
+
+  .lore-reactions__count {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+
+  .lore-reactions__description {
+    display: none;
+  }
+
+  .lore-reactions__button:hover .lore-reactions__description,
+  .lore-reactions__button:focus-visible .lore-reactions__description {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: var(--space-1);
+  }
+
+  .lore-reactions__footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--reaction-border);
+    text-align: center;
+  }
+
+  .lore-reactions__hint {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin: 0;
+    font-family: var(--font-mono);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .lore-reactions__button {
+      transition: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .lore-reactions__button {
+      border-width: 2px;
+    }
+  }
+</style>
