@@ -32,6 +32,38 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('../assets/fonts/crimson-text-regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('../assets/fonts/crimson-text-italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('../assets/fonts/crimson-text-semibold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url('../assets/fonts/crimson-text-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   /* Colores principales - Paleta fantasía oscura */
   --color-bg-primary: #0a0a0a;
@@ -79,6 +111,7 @@
   /* Tipografías */
   --font-display: 'Cinzel', 'Georgia', serif;
   --font-body: 'EB Garamond', 'Georgia', serif;
+  --font-reading: 'Crimson Text', 'EB Garamond', 'Georgia', serif;
   --font-ui: 'Montserrat', 'Arial', sans-serif;
   --font-mono: 'Cascadia Code', 'Consolas', monospace;
 

@@ -556,7 +556,7 @@ const isCurrent = (href: string) => {
 
   /* Page transitions */
   @media (prefers-reduced-motion: no-preference) {
-    main > *:first-child {
+    main > *:first-child:not(.lore-book):not(#loreBook) {
       animation: fade-in-up 0.5s ease-out forwards;
     }
   }
