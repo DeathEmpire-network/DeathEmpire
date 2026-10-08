@@ -28,7 +28,7 @@ Cliente (Libro) → RPC Supabase (validación + idempotency)
 |-----------|-------|---------------|
 | **Límite** | 20 reacciones / hora / usuario | Suficiente para lectura casual, previene bots |
 | **Ventana** | 1 hora (3600s) | Rolling window |
-| **Clave** | `ratelimit:lore:{userId}:{windowStart}` | Por usuario, rotando cada hora |
+| **Clave** | `ratelimit:lore:{user_hash}:{windowStart}` | Por usuario, rotando cada hora |
 | **TTL** | 3600s (1 hora) + buffer | Expiración automática |
 | **Burst** | 5 req/10s | Permite ráfaga inicial legítima |
 
@@ -38,14 +38,14 @@ Cliente (Libro) → RPC Supabase (validación + idempotency)
 
 ### Rate Limit
 ```
-Key:   ratelimit:lore:{userId}:{unixHour}
+Key:   ratelimit:lore:{user_hash}:{unixHour}
 Type:  Counter (INCR + EXPIRE)
 TTL:   3600s
 ```
 
 ### Idempotency (complementario a constraint DB)
 ```
-Key:   idempotency:lore:{userId}:{chapterSlug}:{kind}
+Key:   idempotency:lore:{user_hash}:{chapter_id}:{kind}
 Type:  String (SET NX EX 86400)
 TTL:   86400s (24h) - cubre ventana de reintentos
 Value: "1" (existencia = ya reaccionado)
@@ -66,19 +66,19 @@ const redis = new Redis({
 
 const RATE_LIMIT = 20;      // por hora
 const BURST_LIMIT = 5;      // por 10s
-const WINDOW_MS = 3600_000; // 1h
+const WINDOW_MS = 3_600_000; // 1h
 const BURST_WINDOW_MS = 10_000; // 10s
 
 export async function checkRateLimit(
-  userId: string,
+  userHash: string,
   action: 'reaction'
 ): Promise<{ allowed: boolean; retryAfter?: number }> {
   const now = Date.now();
   const hourWindow = Math.floor(now / 3_600_000);
   const burstWindow = Math.floor(now / 10_000);
 
-  const hourKey = `ratelimit:lore:${userId}:${hourWindow}`;
-  const burstKey = `ratelimit:lore:burst:${userId}:${burstWindow}`;
+  const hourKey = `ratelimit:lore:${userHash}:${hourWindow}`;
+  const burstKey = `ratelimit:lore:burst:${userHash}:${burstWindow}`;
 
   // Pipeline para atomicidad
   const pipeline = redis.pipeline();
@@ -109,12 +109,12 @@ export async function checkRateLimit(
 
 ```typescript
 // Cliente: generar clave determinista
-function generateIdempotencyKey(
-  userId: string,
-  chapterSlug: string,
+async function generateIdempotencyKey(
+  userHash: string,
+  chapterId: string,
   kind: LoreReactionKind
-): string {
-  const input = `${userId}:${chapterSlug}:${kind}`;
+): Promise<string> {
+  const input = `${userHash}:${chapterId}:${kind}`;
   // SHA-256 hex (Web Crypto API)
   const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
   return Array.from(new Uint8Array(buffer))
@@ -123,10 +123,11 @@ function generateIdempotencyKey(
 }
 
 // Uso en submit
-const idempotencyKey = generateIdempotencyKey(user.id, 'chapter-1', 'imperial_loyalty');
+const idempotencyKey = await generateIdempotencyKey(userHash, 'chapter-1', 'imperial_loyalty');
 await supabase.rpc('submit_lore_reaction', {
-  p_chapter_slug: 'chapter-1',
-  p_reaction_kind: 'imperial_loyalty',
+  p_chapter_id: 'chapter-1',
+  p_kind: 'imperial_loyalty',
+  p_user_hash: userHash,
   p_idempotency_key: idempotencyKey
 });
 ```
@@ -176,7 +177,7 @@ Si Upstash no disponible:
 ```typescript
 // En RPC Supabase
 try {
-  const { allowed, retryAfter } = await checkRateLimit(userId, 'reaction');
+  const { allowed, retryAfter } = await checkRateLimit(userHash, 'reaction');
   if (!allowed) throw createRateLimitError(retryAfter);
 } catch (err) {
   if (err.code !== 'UPSTASH_UNAVAILABLE') throw err;
@@ -187,7 +188,7 @@ try {
 
 ---
 
-## Variables de Entorno (Futuro - Fase 2+)
+## Variables de Entorno (Fase 2+)
 
 ```bash
 # Solo en servidor (Edge Functions) - NUNCA en PUBLIC_*
