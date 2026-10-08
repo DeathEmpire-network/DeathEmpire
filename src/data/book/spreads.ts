@@ -6,6 +6,7 @@
  */
 import { tome, chapters, getChapter, type ChapterMeta } from './tome1';
 import { narratives } from './narratives';
+import { narrativesEn } from './narratives-en';
 import { paginate, spreadCount } from './pagination';
 import type { BookPage } from './pages';
 
@@ -95,7 +96,7 @@ export function buildChapter(slug: string, lang: Lang): ChapterReader | null {
     if (!first) return null;
     spreads.push({ left: first.left, right: first.right });
   } else {
-    const total = totalSpreadsFor(slug);
+    const total = totalSpreadsFor(slug, lang);
     for (let s = 1; s <= total; s++) {
       const built = buildSpread(slug, lang, s);
       if (!built) return null;
@@ -108,7 +109,7 @@ export function buildChapter(slug: string, lang: Lang): ChapterReader | null {
   const nextCh = idx < chapters.length - 1 ? chapters[idx + 1] : null;
   const prevChapter = prevCh
     ? {
-        href: `${spreadHref(lang, prevCh.slug, 1)}#opening-${totalSpreadsFor(prevCh.slug)}`,
+        href: `${spreadHref(lang, prevCh.slug, 1)}#opening-${totalSpreadsFor(prevCh.slug, lang)}`,
         label: `${t.chapterOf(prevCh.order, tome.totalChapters)} · ${lang === 'es' ? prevCh.titleEs : prevCh.titleEn}`,
       }
     : null;
@@ -166,11 +167,12 @@ function textOf(ch: ChapterMeta, lang: Lang) {
   };
 }
 
-export function totalSpreadsFor(slug: string): number {
+export function totalSpreadsFor(slug: string, lang: Lang = 'en'): number {
   const ch = getChapter(slug);
   if (!ch) return 0;
   if (!ch.hasFullText) return 1;
-  return spreadCount(paginate(narratives[slug] ?? [], slug).length);
+  const langNarratives = lang === 'es' ? narratives : narrativesEn;
+  return spreadCount(paginate(langNarratives[slug] ?? [], slug).length);
 }
 
 /** Construye una apertura (1-based). Null si no existe. */
@@ -206,7 +208,7 @@ export function buildSpread(slug: string, lang: Lang, spread: number): SpreadDat
     return finish(ch, lang, t, tx, prevCh, nextCh, left, right, spread, 1);
   }
 
-  const pages = paginate(narratives[slug] ?? [], slug);
+  const pages = paginate((lang === 'es' ? narratives : narrativesEn)[slug] ?? [], slug);
   const total = spreadCount(pages.length);
   if (spread < 1 || spread > total) return null;
 
@@ -277,7 +279,7 @@ function finish(
     prevHref = spreadHref(lang, ch.slug, spread - 1);
     prevLabel = t.spreadOf(spread - 1, total);
   } else if (prevCh) {
-    const prevTotal = totalSpreadsFor(prevCh.slug);
+    const prevTotal = totalSpreadsFor(prevCh.slug, lang);
     prevHref = spreadHref(lang, prevCh.slug, prevTotal);
     const prevTx = lang === 'es' ? prevCh.titleEs : prevCh.titleEn;
     prevLabel = `${t.chapterOf(prevCh.order, tome.totalChapters)} · ${prevTx}`;
