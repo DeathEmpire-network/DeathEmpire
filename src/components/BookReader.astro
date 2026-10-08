@@ -281,12 +281,31 @@ function nextText(n: number): string {
         return;
       }
       isTurning = true;
-      // Destino detrás: visible bajo la hoja durante el giro.
+
+      // Dispositivos móviles: animación de plegado/desplegado de pergamino (scroll)
+      if (window.innerWidth <= 1023) {
+        fromEl.classList.add('scroll-fold');
+        setTimeout(function() {
+          show(n);
+          toEl.classList.add('scroll-fold');
+          try {
+            var url = new URL(window.location.href);
+            url.hash = 'opening-' + n;
+            window.history.replaceState(null, '', url.toString());
+          } catch (e) {}
+          focusSpread();
+        }, 220);
+        setTimeout(function() {
+          fromEl.classList.remove('scroll-fold');
+          toEl.classList.remove('scroll-fold');
+          isTurning = false;
+        }, 520);
+        return;
+      }
+
+      // Escritorio: animación 3D de paso de hoja de libro
       toEl.removeAttribute('hidden');
-      
-      // Actualizar botones en destino antes del giro
       updateNavButtonsInElement(toEl, n);
-      
       if (dir === 'next') {
         front.innerHTML = leafInner(fromEl, 'right').innerHTML;
         back.innerHTML = leafInner(toEl, 'left').innerHTML;
@@ -851,21 +870,90 @@ function nextText(n: number): string {
     gap: var(--space-2);
     align-items: center;
   }
-  /* Tablet estrecha y móvil: una columna de alto natural, sin libro comprimido */
+  /* Tablet estrecha y móvil: transformación a Pergamino (Scroll) de corte antiguo */
   @media (max-width: 1023px) {
     .lore-book {
-      padding-right: 10px;
+      padding: 16px 8px 24px 8px;
+      width: 100%;
+      background: transparent;
     }
+    .book-cover-back,
     .book-block,
     .book-spine-outer {
       display: none;
     }
+    .js .book-assembly {
+      height: auto !important;
+      min-height: auto;
+      transform: none !important;
+    }
+    .js .spread {
+      position: relative !important;
+      inset: auto !important;
+      height: auto !important;
+    }
     .spread {
       grid-template-columns: 1fr;
+      border: 3px solid #7d5736;
+      border-radius: 12px;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.9),
+        inset 0 0 35px rgba(107, 74, 47, 0.35);
+      background-color: #e7d4a8;
+      position: relative;
+    }
+    .leaf {
+      padding: 1.5rem 1.25rem 2.5rem 1.25rem;
+    }
+    /* Remates de pergamino enrollado arriba y abajo */
+    .spread::before,
+    .spread::after {
+      content: '';
+      display: block;
+      height: 22px;
+      width: calc(100% + 12px);
+      margin-left: -6px;
+      background: linear-gradient(180deg, #4a2d1a 0%, #8c5d37 40%, #a67c52 50%, #8c5d37 60%, #3d2314 100%);
+      border-radius: 11px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      border: 1px solid #2a150a;
+    }
+    .spread::before {
+      margin-bottom: 0.5rem;
+    }
+    .spread::after {
+      margin-top: 0.5rem;
     }
     .js .leaf-inner {
       height: auto;
       overflow: visible;
+    }
+    /* Animación de Plegado y Desplegado de Pergamino al cambiar de página */
+    .spread.scroll-fold {
+      animation: scroll-fold-unfold 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      transform-origin: center center;
+    }
+  }
+  @keyframes scroll-fold-unfold {
+    0% {
+      transform: scaleY(1);
+      opacity: 1;
+      filter: brightness(1);
+    }
+    45% {
+      transform: scaleY(0.05) scaleX(0.95);
+      opacity: 0.3;
+      filter: brightness(0.7);
+    }
+    55% {
+      transform: scaleY(0.05) scaleX(0.95);
+      opacity: 0.3;
+      filter: brightness(0.7);
+    }
+    100% {
+      transform: scaleY(1) scaleX(1);
+      opacity: 1;
+      filter: brightness(1);
     }
   }
   @media (max-width: 640px) {
@@ -890,8 +978,9 @@ function nextText(n: number): string {
   }
   @media (prefers-reduced-motion: reduce) {
     .turn-leaf.show.from-right,
-    .turn-leaf.show.from-left {
-      animation: turn-fade 100ms linear forwards;
+    .turn-leaf.show.from-left,
+    .spread.scroll-fold {
+      animation: turn-fade 100ms linear forwards !important;
     }
     .page-enter .leaf-inner > * {
       animation: none;
