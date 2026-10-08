@@ -72,37 +72,37 @@
   --color-bg-card: #141414;
   --color-bg-card-hover: #1c1c1c;
 
-  --color-text-primary: #f0ebe0;
-  --color-text-secondary: #c9c0b0;
-  --color-text-muted: #8a8275;
-  --color-text-accent: #d4a574;
+  --color-text-primary: #f5f0e6;
+  --color-text-secondary: #d6ccbd;
+  --color-text-muted: #9e9485;
+  --color-text-accent: #e0b37e;
 
   --color-border-subtle: #2a2520;
-  --color-border-default: #3d352d;
-  --color-border-strong: #5a4d3d;
+  --color-border-default: #40362c;
+  --color-border-strong: #615240;
 
-  --color-gold: #c9a86b;
-  --color-gold-bright: #e8c58a;
-  --color-gold-muted: #9d8455;
-  --gold: #c9a86b;
-  --gold-bright: #e8c58a;
-  --gold-muted: #9d8455;
+  --color-gold: #d4ae6e;
+  --color-gold-bright: #ebd09b;
+  --color-gold-muted: #b0935d;
+  --gold: #d4ae6e;
+  --gold-bright: #ebd09b;
+  --gold-muted: #b0935d;
 
-  --color-crimson: #8b1a1a;
-  --color-crimson-bright: #b32d2d;
-  --color-crimson-muted: #5d1313;
+  --color-crimson: #9e2222;
+  --color-crimson-bright: #c73c3c;
+  --color-crimson-muted: #6e1818;
 
-  --color-fire: #d45d2e;
-  --color-fire-bright: #e87a4a;
-  --color-fire-muted: #9d4221;
+  --color-fire: #dd6635;
+  --color-fire-bright: #ee8454;
+  --color-fire-muted: #a84924;
 
   --color-ash: #4a4540;
   --color-ash-light: #6b645c;
   --color-ash-dark: #2d2a27;
 
-  --color-magic: #2d5a8a;
-  --color-magic-bright: #3d7abf;
-  --color-magic-muted: #1e3d5c;
+  --color-magic: #36679b;
+  --color-magic-bright: #4b88cf;
+  --color-magic-muted: #22476d;
 
   --color-charcoal: #0d0d0d;
   --color-obsidian: #141414;
@@ -185,6 +185,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -195,6 +196,12 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .portal-card:hover,
+  .btn:hover,
+  .action-arrow {
+    transform: none !important;
   }
 }
 
@@ -206,6 +213,7 @@ body {
   background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Tipografía display */
@@ -241,10 +249,13 @@ a:hover {
   text-decoration: underline;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 3px;
   border-radius: var(--radius-sm);
+  box-shadow: 0 0 10px rgba(235, 208, 155, 0.4);
 }
 
 /* Código */

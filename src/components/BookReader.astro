@@ -478,11 +478,13 @@ function nextText(n: number): string {
     inset: 0;
   }
   .js .book-assembly {
-    height: clamp(620px, 72vh, 780px);
+    height: clamp(640px, 75vh, 840px);
   }
   .js .leaf-inner {
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #a67c52 transparent;
   }
   .leaf {
     position: relative;
