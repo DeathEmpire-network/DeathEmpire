@@ -7,6 +7,7 @@ export interface CoverPage {
   title: string;
   subtitle?: string;
   editionBadge: string;
+  editionNote?: string;
   statusBadge: string;
   readingNote: string;
 }
