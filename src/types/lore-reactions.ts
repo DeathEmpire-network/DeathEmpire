@@ -38,9 +38,10 @@ export interface LoreReactionCounts {
 }
 
 export interface LoreReactionPayload {
-  chapterSlug: string;
+  chapter_id: string;
   kind: LoreReactionKind;
-  idempotencyKey: string;
+  user_hash: string;
+  idempotency_key: string;
 }
 
 export interface LoreReactionSubmitResult {
@@ -51,7 +52,7 @@ export interface LoreReactionSubmitResult {
 }
 
 export type LoreReactionAvailability =
-  | { available: true; service: 'supabase' }
+  | { available: true; service: 'supabase'; reason: string; serviceType: 'fallback' | 'supabase' | 'mock' }
   | { available: false; reason: 'unconfigured' | 'unavailable' | 'maintenance' };
 
 /**

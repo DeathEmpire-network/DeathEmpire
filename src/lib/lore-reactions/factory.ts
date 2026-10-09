@@ -14,6 +14,7 @@
 
 import type { LoreReactionServiceContract } from './contracts';
 import { UnavailableLoreReactionService, unavailableLoreReactionService } from './fallback';
+import { SupabaseLoreReactionService } from './supabase';
 import { validatePublicConfig } from './contracts';
 
 let _serviceInstance: LoreReactionServiceContract | null = null;
@@ -30,15 +31,11 @@ export function getLoreReactionService(): LoreReactionServiceContract {
   const config = validatePublicConfig();
 
   if (config.available && config.serviceType === 'supabase') {
-    // Futuro: cargar implementación Supabase dinámicamente
-    // Por ahora, fallback seguro aunque las vars estén configuradas
-    // hasta que la implementación real exista.
-    console.info('[LoreReactions] Supabase config detected, but implementation not yet available. Using fallback.');
-    _serviceInstance = unavailableLoreReactionService;
+    _serviceInstance = new SupabaseLoreReactionService();
     return _serviceInstance;
   }
 
-  // Fallback por defecto (Fase 1: siempre este camino)
+  // Fallback por defecto (Fase 1: siempre este camino hasta configurar Supabase)
   _serviceInstance = unavailableLoreReactionService;
   return _serviceInstance;
 }

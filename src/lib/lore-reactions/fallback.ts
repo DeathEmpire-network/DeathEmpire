@@ -12,9 +12,9 @@ import type {
   LoreReactionSubmitResult,
   LoreReactionAvailability,
   LoreReactionKind,
-} from '../../types/lore-reactions';
+} from '@deathempire/types/lore-reactions';
 import type { LoreReactionServiceContract } from './contracts';
-import { getDefaultCounts, isValidLoreReactionKind } from '../../types/lore-reactions';
+import { getDefaultCounts, isValidLoreReactionKind } from '@deathempire/types/lore-reactions';
 import { LoreReactionErrorCodes, createLoreReactionError } from './contracts';
 
 /**
@@ -34,23 +34,28 @@ export class UnavailableLoreReactionService implements LoreReactionServiceContra
     return getDefaultCounts();
   }
 
-  async submitReaction(payload: LoreReactionPayload): Promise<LoreReactionSubmitResult> {
+  async submitReaction(payload: {
+    chapter_id: string;
+    kind: string;
+    user_hash: string;
+    idempotency_key: string;
+  }): Promise<{ success: boolean; error?: string }> {
     // Validación básica de entrada (defensa en profundidad)
-    if (!payload.chapterSlug || typeof payload.chapterSlug !== 'string') {
+    if (!payload.chapter_id || typeof payload.chapter_id !== 'string') {
       return {
         success: false,
         error: 'Invalid chapter slug',
       };
     }
 
-    if (!isValidLoreReactionKind(payload.kind)) {
+    if (!payload.kind || typeof payload.kind !== 'string') {
       return {
         success: false,
         error: 'Invalid reaction kind',
       };
     }
 
-    if (!payload.idempotencyKey || typeof payload.idempotencyKey !== 'string') {
+    if (!payload.idempotency_key || typeof payload.idempotency_key !== 'string') {
       return {
         success: false,
         error: 'Missing idempotency key',
@@ -58,15 +63,9 @@ export class UnavailableLoreReactionService implements LoreReactionServiceContra
     }
 
     // Servicio no disponible - error controlado
-    const err = createLoreReactionError(
-      'SERVICE_UNAVAILABLE',
-      'Reactions service is not configured. Please configure PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY to enable reactions.',
-    );
-
     return {
       success: false,
-      error: err.message,
-      // No retryAfter en fallback - el usuario debe configurar el backend
+      error: 'Reactions service is not configured. Please configure PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY to enable reactions.',
     };
   }
 }
