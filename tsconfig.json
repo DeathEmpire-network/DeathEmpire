@@ -1,8 +1,14 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "e2e"],
+  "exclude": ["dist", "e2e", "supabase/functions"],
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@deathempire/*": ["src/*"],
+      "@deathempire/types/*": ["src/types/*"]
+    }
   }
 }

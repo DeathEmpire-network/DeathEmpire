@@ -1,14 +1,13 @@
 ---
 /**
  * LoreReactions.astro - Componente de reacciones del Libro del Lore
- * Fase 1: Fundación - Estado "no disponible" por defecto
- * Sin <script>, sin client JS, solo render estático del estado "no disponible".
+ * Fase 3: Live - Estados loading/error/429/409/503, a11y, i18n
  * Diseñado para insertarse al final de un capítulo del Libro.
  */
 
-import type { LoreReactionCatalogEntry } from '../types/lore-reactions';
+import type { LoreReactionCatalogEntry } from '@deathempire/types/lore-reactions';
 import { LORE_REACTION_CATALOG } from '../data/lore/reactions-catalog';
-import type { LoreReactionCounts } from '../types/lore-reactions';
+import type { LoreReactionCounts } from '@deathempire/types/lore-reactions';
 
 interface Props {
   /** Slug del capítulo (ej: 'chapter-1') - para futuro backend */
@@ -35,10 +34,24 @@ const messages = {
   en: {
     unavailable: 'Reactions are not available yet.',
     unavailableTitle: 'Reactions Unavailable',
+    loading: 'Loading reactions...',
+    error: 'Failed to load reactions. Please try again.',
+    rateLimited: 'Too many reactions. Please wait {retryAfter}s.',
+    alreadyReacted: 'You already reacted with {label}.',
+    serverError: 'Server error. Please try again later.',
+    retry: 'Retry',
+    react: 'React',
   },
   es: {
     unavailable: 'Las reacciones aún no están disponibles.',
     unavailableTitle: 'Reacciones no disponibles',
+    loading: 'Cargando reacciones...',
+    error: 'Error al cargar reacciones. Intenta de nuevo.',
+    rateLimited: 'Demasiadas reacciones. Espera {retryAfter}s.',
+    alreadyReacted: 'Ya reaccionaste con {label}.',
+    serverError: 'Error del servidor. Intenta más tarde.',
+    retry: 'Reintentar',
+    react: 'Reaccionar',
   },
 };
 
@@ -77,28 +90,32 @@ const unavailableMsg = unavailableMessage ?? t.unavailable;
   </header>
 
   <div class="lore-reactions__grid" role="group" aria-label={t.unavailableTitle}>
-    {LORE_REACTION_CATALOG.map((reaction: LoreReactionCatalogEntry) => (
-      <button
-        class={`lore-reactions__button ${isActuallyDisabled ? 'lore-reactions__button--disabled' : ''}`}
-        type="button"
-        disabled={isActuallyDisabled}
-        data-reaction-kind={reaction.kind}
-        aria-label={`${reaction.emoji} ${reaction[`label${lang.toUpperCase()}` as keyof LoreReactionCatalogEntry]}: {mergedCounts[reaction.kind] ?? 0}`}
-        aria-disabled={isActuallyDisabled}
-        aria-pressed="false"
-      >
-        <span class="lore-reactions__emoji" aria-hidden="true">{reaction.emoji}</span>
-        <span class="lore-reactions__label">
-          {lang === 'es' ? reaction.labelES : reaction.labelEN}
-        </span>
-        <span class="lore-reactions__count" aria-live="polite" aria-atomic="true">
-          {mergedCounts[reaction.kind] ?? 0}
-        </span>
-        <span class="lore-reactions__description" aria-hidden="true">
-          {lang === 'es' ? reaction.descriptionES : reaction.descriptionEN}
-        </span>
-      </button>
-    ))}
+    {LORE_REACTION_CATALOG.map((reaction: LoreReactionCatalogEntry) => {
+      const labelKey = `label${lang.toUpperCase()}` as keyof LoreReactionCatalogEntry;
+      const label = reaction[labelKey];
+      return (
+        <button
+          class={`lore-reactions__button ${isActuallyDisabled ? 'lore-reactions__button--disabled' : ''}`}
+          type="button"
+          disabled={isActuallyDisabled}
+          data-reaction-kind={reaction.kind}
+          aria-label={`${reaction.emoji} ${label}: {mergedCounts[reaction.kind] ?? 0}`}
+          aria-disabled={isActuallyDisabled}
+          aria-pressed="false"
+        >
+          <span class="lore-reactions__emoji" aria-hidden="true">{reaction.emoji}</span>
+          <span class="lore-reactions__label">
+            {lang === 'es' ? reaction.labelES : reaction.labelEN}
+          </span>
+          <span class="lore-reactions__count" aria-live="polite" aria-atomic="true">
+            {mergedCounts[reaction.kind] ?? 0}
+          </span>
+          <span class="lore-reactions__description" aria-hidden="true">
+            {lang === 'es' ? reaction.descriptionES : reaction.descriptionEN}
+          </span>
+        </button>
+      );
+    })}
   </div>
 
   {isActuallyDisabled && (
@@ -111,6 +128,73 @@ const unavailableMsg = unavailableMessage ?? t.unavailable;
     </footer>
   )}
 </div>
+
+<script is:inline type="module">
+  import { getReactionCounts, submitReaction } from '../lib/lore-reactions/client.js';
+  import { LORE_REACTION_CATALOG } from '../data/lore/reactions-catalog.js';
+
+  const chapterSlugStr = JSON.stringify(chapterSlug);
+  const langStr = JSON.stringify(lang);
+  const isLive = true;
+  const initialCounts = JSON.stringify(mergedCounts);
+
+  let loading = false;
+  let error = false;
+  let rateLimited = false;
+  let retryAfter = 0;
+  let alreadyReacted = false;
+  let alreadyReactedLabel = '';
+  let counts = JSON.parse(initialCounts);
+
+  async function loadCounts() {
+    if (!isLive) return;
+    loading = true;
+    try {
+      const data = await getReactionCounts(chapterSlugStr);
+      counts = data;
+    } catch {
+      error = true;
+    } finally {
+      loading = false;
+    }
+  }
+
+  async function handleReact(kind) {
+    if (!isLive) return;
+    loading = true;
+    error = false;
+    rateLimited = false;
+    alreadyReacted = false;
+
+    try {
+      const result = await submitReaction(chapterSlugStr, kind);
+      if (result.success) {
+        if (result.counts) counts = result.counts;
+      } else if (result.error === 'RATE_LIMITED') {
+        rateLimited = true;
+        retryAfter = result.retryAfter ?? 60;
+      } else if (result.error === 'IDEMPOTENCY_CONFLICT') {
+        alreadyReacted = true;
+        const reaction = LORE_REACTION_CATALOG.find(r => r.kind === kind);
+        const labelKey = `label${langStr.toUpperCase()}`;
+        alreadyReactedLabel = reaction?.[labelKey] ?? kind;
+      } else {
+        error = true;
+      }
+    } catch {
+      error = true;
+    } finally {
+      loading = false;
+    }
+  }
+
+  async function retry() {
+    await loadCounts();
+  }
+
+  // Cargar contadores al montar
+  loadCounts();
+</script>
 
 <style>
   .lore-reactions {

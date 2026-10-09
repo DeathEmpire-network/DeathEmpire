@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BookReader from '../../components/BookReader.astro';
+import LoreReactions from '../../components/LoreReactions.astro';
 import { chapters } from '../../data/book/tome1';
 import { buildChapter, spreadHref } from '../../data/book/spreads';
 
@@ -35,5 +36,11 @@ const depth = Math.min(72, Math.max(24, reader.totalSpreads * 4));
     prevLabel={reader.prevLabel}
     nextLabel={reader.nextLabel}
     progressOf={(s: number, t: number) => `Chapter ${reader.chapter.order} of 10 · Opening ${s} of ${t}`}
+  />
+
+  <!-- LoreReactions insertado al final del capítulo -->
+  <LoreReactions
+    chapterSlug={reader.chapter.slug}
+    lang="en"
   />
 </BaseLayout>

@@ -1,0 +1,28 @@
+{
+  "name": "lore-reactions",
+  "version": "1.0.0",
+  "lock": false,
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2",
+    "@upstash/ratelimit": "npm:@upstash/ratelimit@1",
+    "@upstash/redis": "npm:@upstash/redis@1",
+    "std/": "https://deno.land/std@0.224.0/"
+  },
+  "fmt": {
+    "indentWidth": 2,
+    "singleQuote": true,
+    "proseWrap": "preserve"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": [],
+      "exclude": ["no-explicit-any"]
+    }
+  },
+  "tasks": {
+    "dev": "deno run --allow-net --allow-env --allow-read --watch supabase/functions/lore-reactions/index.ts",
+    "test": "deno test --allow-net --allow-env --allow-read supabase/functions/lore-reactions/"
+  }
+}

@@ -9,7 +9,7 @@ import type {
   LoreReactionPayload,
   LoreReactionSubmitResult,
   LoreReactionAvailability,
-} from '../../types/lore-reactions';
+} from '@deathempire/types/lore-reactions';
 
 /**
  * Contrato del servicio de reacciones de Lore.
