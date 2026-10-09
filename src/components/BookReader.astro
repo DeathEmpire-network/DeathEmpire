@@ -139,17 +139,6 @@ function nextText(n: number): string {
 
 <p class="book-progress" role="status" aria-live="polite" id="bookProgress">{p.progressOf(1, total)}</p>
 
-<nav class="book-paging" aria-label={p.pagingLabel} id="bookPaging" data-prev-label={p.prevLabel} data-next-label={p.nextLabel}>
-  <span class="page-corner left">
-    <a href={anchor(1)} class="btn btn-outline btn-sm" data-book-first aria-label={p.firstLabel}>«</a>
-    <a href={prevTarget(1)} class="btn btn-outline" data-book-prev aria-label={prevText(1)}>← {prevText(1)}</a>
-  </span>
-  <span class="page-corner right">
-    <a href={nextTarget(1)} class="btn btn-outline" data-book-next aria-label={nextText(1)}>{nextText(1)} →</a>
-    <a href={anchor(total)} class="btn btn-outline btn-sm" data-book-last aria-label={p.lastLabel}>»</a>
-  </span>
-</nav>
-
 <script is:inline>
 (function () {
   function ready(fn) {
