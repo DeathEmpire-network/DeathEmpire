@@ -40,7 +40,11 @@ test.describe('Security - Secret Scan', () => {
           }
         } else if (entry.isFile()) {
           const relPath = path.relative(SITE_DIR, fullPath);
-          if (excludeFiles.some(ex => path.basename(fullPath).match(ex.replace('*', '.*')))) continue;
+          if (excludeFiles.some(ex => {
+            const escaped = ex.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const pattern = new RegExp(`^${escaped.replace(/\\\*/g, '.*')}$`);
+            return pattern.test(path.basename(fullPath));
+          })) continue;
 
           try {
             const content = fs.readFileSync(fullPath, 'utf-8');
