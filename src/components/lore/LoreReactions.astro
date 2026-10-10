@@ -1,0 +1,131 @@
+---
+/**
+ * LoreReactions.astro - Template del componente de reacciones
+ * Lógica en LoreReactions.ts, estilos en LoreReactions.css
+ */
+import type { LoreReactionCatalogEntry } from '@deathempire/types/lore-reactions';
+import { LORE_REACTION_CATALOG } from '../../data/lore/reactions-catalog';
+import type { LoreReactionCounts } from '@deathempire/types/lore-reactions';
+import './LoreReactions.css';
+
+interface Props {
+  chapterSlug?: string;
+  counts?: Record<string, number>;
+  disabled?: boolean;
+  lang?: 'en' | 'es';
+  unavailableMessage?: string;
+}
+
+const {
+  chapterSlug,
+  counts = {},
+  disabled = false,
+  lang = 'en',
+  unavailableMessage,
+} = Astro.props;
+
+const messages = {
+  en: {
+    unavailable: 'Reactions are not available yet.',
+    unavailableTitle: 'Reactions Unavailable',
+    loading: 'Loading reactions...',
+    error: 'Failed to load reactions. Please try again.',
+    rateLimited: 'Too many reactions. Please wait {retryAfter}s.',
+    alreadyReacted: 'You already reacted with {label}.',
+    serverError: 'Server error. Please try again later.',
+    retry: 'Retry',
+    react: 'React',
+  },
+  es: {
+    unavailable: 'Las reacciones aún no están disponibles.',
+    unavailableTitle: 'Reacciones no disponibles',
+    loading: 'Cargando reacciones...',
+    error: 'Error al cargar reacciones. Intenta de nuevo.',
+    rateLimited: 'Demasiadas reacciones. Espera {retryAfter}s.',
+    alreadyReacted: 'Ya reaccionaste con {label}.',
+    serverError: 'Error del servidor. Intenta más tarde.',
+    retry: 'Reintentar',
+    react: 'Reaccionar',
+  },
+};
+
+const t = messages[lang];
+
+const defaultCounts = {
+  imperial_loyalty: 0,
+  mana_corruption: 0,
+  inquisitorial_alert: 0,
+  consumed_by_void: 0,
+};
+
+const mergedCounts: LoreReactionCounts = { ...defaultCounts, ...counts };
+const hasRealCounts = Object.keys(counts).length > 0;
+const isActuallyDisabled = disabled && !hasRealCounts;
+
+const unavailableMsg = unavailableMessage ?? t.unavailable;
+---
+
+<div
+  class="lore-reactions"
+  data-chapter-slug={chapterSlug}
+  data-disabled={isActuallyDisabled}
+  data-lang={lang}
+  aria-live="polite"
+  aria-atomic="true"
+>
+  <header class="lore-reactions__header">
+    <h3 class="lore-reactions__title">{unavailableMsg}</h3>
+    {isActuallyDisabled && (
+      <p class="lore-reactions__notice">
+        {lang === 'es'
+          ? 'Las reacciones se activarán cuando el backend esté configurado.'
+          : 'Reactions will be enabled once the backend is configured.'}
+      </p>
+    )}
+  </header>
+
+  <div class="lore-reactions__grid" role="group" aria-label={t.unavailableTitle}>
+    {LORE_REACTION_CATALOG.map((reaction: LoreReactionCatalogEntry) => {
+      const labelKey = `label${lang.toUpperCase()}` as keyof LoreReactionCatalogEntry;
+      const label = reaction[labelKey];
+      const count = mergedCounts[reaction.kind] ?? 0;
+      return (
+        <button
+          class={`lore-reactions__button ${isActuallyDisabled ? 'lore-reactions__button--disabled' : ''}`}
+          type="button"
+          disabled={isActuallyDisabled}
+          data-reaction-kind={reaction.kind}
+          aria-label={`${reaction.emoji} ${label}: ${count}`}
+          aria-disabled={isActuallyDisabled}
+          aria-pressed="false"
+        >
+          <span class="lore-reactions__emoji" aria-hidden="true">{reaction.emoji}</span>
+          <span class="lore-reactions__label">
+            {lang === 'es' ? reaction.labelES : reaction.labelEN}
+          </span>
+          <span class="lore-reactions__count" aria-live="polite" aria-atomic="true">
+            {count}
+          </span>
+          <span class="lore-reactions__description" aria-hidden="true">
+            {lang === 'es' ? reaction.descriptionES : reaction.descriptionEN}
+          </span>
+        </button>
+      );
+    })}
+  </div>
+
+  {isActuallyDisabled && (
+    <footer class="lore-reactions__footer">
+      <p class="lore-reactions__hint">
+        {lang === 'es'
+          ? 'Configura PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_PUBLISHABLE_KEY para habilitar reacciones.'
+          : 'Configure PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY to enable reactions.'}
+      </p>
+    </footer>
+  )}
+</div>
+
+<script>
+  import { initLoreReactions } from './LoreReactions.js';
+  initLoreReactions();
+</script>
