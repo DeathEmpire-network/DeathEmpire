@@ -1,0 +1,153 @@
+---
+/**
+ * BookReader.astro - Template del libro interactivo
+ * Lógica en BookReader.ts, estilos en BookReader.css
+ */
+import type { BookPage } from '../../data/book/pages';
+import './BookReader.css';
+
+interface ChapterLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  lang: 'en' | 'es';
+  spreads: Array<{ left: BookPage; right: BookPage }>;
+  prevChapter: ChapterLink | null;
+  nextChapter: ChapterLink | null;
+  indexHref: string;
+  indexLabel: string;
+  pagingLabel: string;
+  firstLabel: string;
+  lastLabel: string;
+  prevLabel: string;
+  nextLabel: string;
+  progressOf: (s: number, t: number) => string;
+  depth: number;
+}
+
+const p = Astro.props;
+const total = p.spreads.length;
+
+function anchor(n: number): string {
+  return `#opening-${n}`;
+}
+
+function renderInline(text: string): string {
+  const esc = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return esc.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+function renderPage(page: BookPage, isLeft: boolean, current: number, total: number): string {
+  if (page.kind === 'cover') {
+    return `<p class="leaf-tome">✦ ${page.tomeTitle} ✦</p>`
+      + `<p><span class="leaf-edition">${page.editionBadge}</span></p>`
+      + (page.editionNote ? `<p class="leaf-editionnote">${page.editionNote}</p>` : '')
+      + `<p class="leaf-chapter">${page.chapterLabel}</p>`
+      + `<h1 class="leaf-title" tabindex="-1" data-book-focus>${page.title}</h1>`
+      + (page.subtitle ? `<p class="leaf-subtitle">${page.subtitle}</p>` : '')
+      + `<div class="leaf-divider" aria-hidden="true"><span></span><span>⚔</span><span></span></div>`
+      + `<p><span class="status-badge status-completed">${page.statusBadge}</span></p>`
+      + `<p class="leaf-reading">◷ ${page.readingNote}</p>`;
+  }
+  if (page.kind === 'text') {
+    return (page.continuationLabel ? `<p class="leaf-continued">${page.continuationLabel}</p>` : '')
+      + page.paragraphs.map((para: string, i: number) => {
+        const focus = i === 0 ? ' tabindex="-1" data-book-focus' : '';
+        return para.startsWith('> ')
+          ? `<blockquote${focus}>${renderInline(para.slice(2))}</blockquote>`
+          : `<p${focus}>${renderInline(para)}</p>`;
+      }).join('');
+  }
+  if (page.kind === 'record') {
+    return `<h2 class="leaf-h2" tabindex="-1" data-book-focus>${page.title}</h2>`
+      + `<p>${page.consequences}</p>`
+      + `<h3 class="leaf-h3">${page.keysTitle}</h3>`
+      + `<p>${page.keys.join(' · ')}</p>`
+      + `<p><span class="status-badge status-completed">${page.statusBadge}</span> <span class="text-ink-soft">${page.period}</span></p>`
+      + `<p class="leaf-source">${page.sourceLabel}: <code>${page.sourceFile}</code></p>`;
+  }
+  if (page.kind === 'next') {
+    return `<div class="leaf-next">`
+      + `<p class="leaf-tome">${page.kicker}</p>`
+      + (page.nextHref
+        ? `<h2 class="leaf-h2" tabindex="-1" data-book-focus>${page.nextTitle}</h2>`
+        + (page.nextSubtitle ? `<p class="leaf-subtitle">${page.nextSubtitle}</p>` : '')
+        + `<p><a href="${page.nextHref}" class="btn btn-dark btn-sm">${page.nextCta} →</a></p>`
+        : `<p>${page.nextCta}</p>`)
+      + `<div class="leaf-divider" aria-hidden="true"><span></span><span>✦</span><span></span></div>`
+      + `<p><a href="${page.indexHref}">${page.indexCta}</a></p></div>`;
+  }
+  return `<div class="placeholder"><p class="placeholder-mark" aria-hidden="true">✦</p>`
+    + `<h2 class="leaf-h2" tabindex="-1" data-book-focus>${page.title}</h2>`
+    + `<p>${page.body}</p>`
+    + (page.sourceFile ? `<p class="leaf-source">${page.sourceLabel}: <code>${page.sourceFile}</code></p>` : '')
+    + `</div>`;
+}
+
+function prevTarget(n: number): string {
+  return n > 1 ? anchor(n - 1) : (p.prevChapter?.href ?? p.indexHref);
+}
+function prevText(n: number): string {
+  return n > 1 ? `${p.prevLabel} ${n - 1}` : (p.prevChapter?.label ?? p.indexLabel);
+}
+function nextTarget(n: number): string {
+  return n < total ? anchor(n + 1) : (p.nextChapter?.href ?? p.indexHref);
+}
+function nextText(n: number): string {
+  return n < total ? `${p.nextLabel} ${n + 1}` : (p.nextChapter?.label ?? p.indexLabel);
+}
+---
+
+<nav class="book-crumb" aria-label={p.indexLabel}>
+  <a href={p.indexHref}>← {p.indexLabel}</a>
+</nav>
+
+<div class="lore-book" id="loreBook" style={`--depth: ${p.depth}px`}>
+  <div class="book-cover-back" aria-hidden="true"></div>
+  <div class="book-stage" id="bookStage">
+    <div class="book-assembly" id="bookAssembly">
+      {p.spreads.map((spread, i) => (
+        <div class="spread" id={`opening-${i + 1}`} data-spread={i + 1} data-total={total}>
+          <section class="leaf">
+            <div class="leaf-inner" set:html={renderPage(spread.left, true, i + 1, total)} />
+            <div class="leaf-nav leaf-nav-left" data-nav-left={i + 1}>
+              <a href={`#opening-${i}`} class="leaf-nav-btn" data-book-prev aria-label="Previous page">←</a>
+            </div>
+          </section>
+          <section class="leaf">
+            <div class="leaf-inner" set:html={renderPage(spread.right, false, i + 1, total)} />
+            <div class="leaf-nav leaf-nav-right" data-nav-right={i + 1}>
+              <a href={`#opening-${i + 2}`} class="leaf-nav-btn" data-book-next aria-label="Next page">→</a>
+            </div>
+          </section>
+        </div>
+      ))}
+      <div class="turn-leaf" id="turnLeaf" aria-hidden="true" hidden>
+        <div class="turn-face turn-front"><div class="leaf-inner" id="turnFront"></div></div>
+        <div class="turn-face turn-back"><div class="leaf-inner" id="turnBack"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="book-block" aria-hidden="true"></div>
+  <div class="book-spine-outer" aria-hidden="true"><span>✦ DEATHEMPIRE ✦</span></div>
+</div>
+
+<p class="book-progress" role="status" aria-live="polite" id="bookProgress">{p.progressOf(1, total)}</p>
+
+<nav class="book-paging" aria-label={p.pagingLabel} id="bookPaging" data-prev-label={p.prevLabel} data-next-label={p.nextLabel}>
+  <span class="page-corner left">
+    <a href={anchor(1)} class="btn btn-outline btn-sm" data-book-first aria-label={p.firstLabel}>«</a>
+    <a href={prevTarget(1)} class="btn btn-outline" data-book-prev aria-label={prevText(1)}>← {prevText(1)}</a>
+  </span>
+  <span class="page-corner right">
+    <a href={nextTarget(1)} class="btn btn-outline" data-book-next aria-label={nextText(1)}>{nextText(1)} →</a>
+    <a href={anchor(total)} class="btn btn-outline btn-sm" data-book-last aria-label={p.lastLabel}>»</a>
+  </span>
+</nav>
+
+<script>
+  import { initBookReader } from './BookReader.js';
+  initBookReader();
+</script>

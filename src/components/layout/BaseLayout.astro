@@ -1,0 +1,207 @@
+---
+// BaseLayout.astro - Layout base para todas las páginas
+import '../../styles/global.css';
+import './BaseLayout.css';
+import LanguageSelector from '../ui/LanguageSelector.astro';
+import { en } from '../../i18n/en';
+import { es as esDict } from '../../i18n/es';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  lang?: 'en' | 'es';
+  enPath?: string;
+  esPath?: string;
+}
+
+const {
+  title,
+  description: propDescription,
+  ogImage = '/DeathEmpire/og-default.png',
+  canonical,
+  lang = 'en',
+  enPath,
+  esPath,
+} = Astro.props;
+
+const t = lang === 'es' ? esDict : en;
+const description = propDescription ?? t.meta.defaultDescription;
+
+const pageUrl = canonical || Astro.url.pathname;
+const fullUrl = new URL(pageUrl, 'https://deathempire-network.github.io').href;
+const fullOgImage = new URL(ogImage, 'https://deathempire-network.github.io').href;
+const fullEn = enPath ? new URL(enPath, 'https://deathempire-network.github.io').href : undefined;
+const fullEs = esPath ? new URL(esPath, 'https://deathempire-network.github.io').href : undefined;
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
+
+const navItems = t.nav;
+
+const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+// Normalize: remove /DeathEmpire prefix if present (dev server runs at /DeathEmpire)
+const normalizedPath = rawPath.replace(/^\/DeathEmpire/, '') || '/';
+const isCurrent = (href: string) => {
+  const normHref = href.replace(/\/$/, '').replace(/^\/DeathEmpire/, '') || '/';
+  // Home links: exact match only (never startsWith)
+  if (normHref === '/' || normHref === '/es') {
+    return normalizedPath === normHref;
+  }
+  // Section links: exact or startsWith for subpages
+  return normalizedPath === normHref || normalizedPath.startsWith(normHref + '/');
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Básico -->
+    <title>{title} | DeathEmpire</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullUrl} />
+    {fullEn && <link rel="alternate" hreflang="en" href={fullEn} />}
+    {fullEs && <link rel="alternate" hreflang="es" href={fullEs} />}
+    {fullEn && <link rel="alternate" hreflang="x-default" href={fullEn} />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:site_name" content="DeathEmpire" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/DeathEmpire/favicon.svg" />
+    <link rel="alternate icon" href="/DeathEmpire/favicon.ico" />
+    <link rel="apple-touch-icon" href="/DeathEmpire/favicon.svg" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/DeathEmpire/site.webmanifest" />
+
+    <!-- Scripts diferidos -->
+    <script>
+      import { initBaseLayout } from './BaseLayout.js';
+      initBaseLayout();
+    </script>
+  </head>
+  <body class="page-{Astro.url.pathname.replace(/\//g, '-').replace(/^-|-$/g, '') || 'home'}">
+    <a href="#main-content" class="skip-link">{t.ui.skipToContent}</a>
+
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label={t.ui.openMenu}>
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+
+        <a href={lang === 'es' ? '/DeathEmpire/es/' : '/DeathEmpire/'} class="site-logo" aria-label={t.header.homeLabel}>
+          <span class="logo-icon" aria-hidden="true">⚔</span>
+          <span class="logo-text">DeathEmpire</span>
+        </a>
+
+        <nav class="main-nav site-nav" role="navigation" aria-label={t.ui.mainNav}>
+          <ul id="nav-menu" class="nav-menu" role="menubar">
+            {navItems.map((item: { href: string; label: string }) => {
+              const active = isCurrent(item.href);
+              return (
+                <li role="none">
+                  <a
+                    href={item.href}
+                    role="menuitem"
+                    class={`nav-link ${active ? 'active' : ''}`}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {enPath && esPath && (
+          <div class="header-lang">
+            <LanguageSelector lang={lang} enPath={enPath} esPath={esPath} />
+          </div>
+        )}
+
+        <div class="header-cta">
+          <a href={t.header.ctaHref} class="btn btn-primary btn-sm">{t.header.cta}</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="nav-overlay" aria-hidden="true"></div>
+
+    <main id="main-content" role="main" class="site-main container">
+      <slot />
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href={lang === 'es' ? '/DeathEmpire/es/' : '/DeathEmpire/'} class="logo" aria-label={t.header.homeLabel}>
+              <span class="logo-icon" aria-hidden="true">⚔</span>
+              <span class="logo-text">DeathEmpire</span>
+            </a>
+            <p>{t.footer.tagline}</p>
+          </div>
+
+          <nav class="footer-nav" aria-label={t.footer.exploreTitle}>
+            <h4>{t.footer.exploreTitle}</h4>
+            <ul>
+              {t.footer.explore.map((item: { href: string; label: string }) => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label={t.footer.projectTitle}>
+            <h4>{t.footer.projectTitle}</h4>
+            <ul>
+              {t.footer.project.map((item: { href: string; label: string }) => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav class="footer-nav" aria-label={t.footer.connectTitle}>
+            <h4>{t.footer.connectTitle}</h4>
+            <ul>
+              {t.footer.connect.map((item: { href: string; label: string }) => (
+                <li><a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener' : undefined}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>{t.footer.note}</p>
+          <div class="footer-links">
+            <a href="https://github.com/DeathEmpire-network" target="_blank" rel="noopener">GitHub</a>
+            <span class="footer-lang">{t.footer.languageLabel}</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button class="back-to-top" aria-label={t.ui.backToTop} title={t.ui.backToTop}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+---
+import { chapters, tome } from '../../data/book/tome1';
+import { totalSpreadsFor } from '../../data/book/spreads';
+import './LoreArchive.css';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+
+const { lang } = Astro.props;
+const isEs = lang === 'es';
+const chapterRows = chapters.map((chapter) => ({
+  chapter,
+  pages: totalSpreadsFor(chapter.slug) * 2,
+}));
+const openingCount = chapterRows.reduce((total, row) => total + row.pages / 2, 0);
+const pageCount = openingCount * 2;
+const completeChapterCount = chapters.filter((chapter) => chapter.hasFullText).length;
+
+const copy = isEs
+  ? {
+      eyebrow: 'EL ARCHIVO',
+      title: 'Archivo de tomos',
+      description: 'Crónicas ordenadas por temporada. Cada tomo abre como un registro de dos páginas.',
+      volumeLabel: 'Tomo',
+      season: 'Temporada 1',
+      volumeTitle: tome.titleEs,
+      subtitle: tome.subtitleEs,
+      summary: 'Del esplendor anterior al maná al origen del Niño del Nivel 78: diez capítulos sobre el precio de sobrevivir.',
+      chapters: 'Capítulos',
+      pages: 'Páginas',
+      openings: 'Aperturas',
+      start: 'Comenzar a leer',
+      fullText: 'narrativa completa',
+      archiveRecord: 'ficha de archivo',
+      contentsEyebrow: 'ÍNDICE DEL TOMO',
+      contentsTitle: 'Capítulos',
+      chapterLabel: 'Capítulo',
+      canon: 'Canónico',
+      inDevelopment: 'En desarrollo',
+      read: 'Leer capítulo',
+      openRecord: 'Abrir ficha',
+      reading: 'de lectura',
+      complete: 'Narrativa completa',
+      footer: 'El índice y el total de páginas se calculan desde la paginación editorial del tomo.',
+      home: 'Volver al inicio',
+      world: 'Descubrir el Mundo',
+    }
+  : {
+      eyebrow: 'THE ARCHIVE',
+      title: 'Tome archive',
+      description: 'Chronicles arranged by season. Each volume opens as a two-page record.',
+      volumeLabel: 'Tome',
+      season: 'Season 1',
+      volumeTitle: tome.titleEn,
+      subtitle: tome.subtitleEn,
+      summary: 'From the age before mana to the Level 78 Child: ten chapters on the cost of survival.',
+      chapters: 'Chapters',
+      pages: 'Pages',
+      openings: 'Openings',
+      start: 'Begin reading',
+      fullText: 'complete narrative',
+      archiveRecord: 'archive record',
+      contentsEyebrow: 'VOLUME INDEX',
+      contentsTitle: 'Chapters',
+      chapterLabel: 'Chapter',
+      canon: 'Canon',
+      inDevelopment: 'In development',
+      read: 'Read chapter',
+      openRecord: 'Open record',
+      reading: 'read',
+      complete: 'Complete narrative',
+      footer: 'The contents and page count are calculated from the volume’s editorial pagination.',
+      home: 'Back to home',
+      world: 'Discover the World',
+    };
+---
+
+<article class={`lore-archive lore-archive-${lang}`}>
+  <header class="archive-heading">
+    <p class="section-eyebrow">{copy.eyebrow}</p>
+    <h1>{copy.title}</h1>
+    <p>{copy.description}</p>
+  </header>
+
+  <section class="archive-shelf" aria-label={copy.eyebrow}>
+    <article class="archive-volume" aria-labelledby="archive-volume-title">
+      <section class="archive-page archive-volume-page">
+        <p class="archive-volume-number">{copy.volumeLabel} {String(tome.number).padStart(2, '0')} <span>·</span> {copy.season}</p>
+        <p class="archive-volume-kicker">✦ {copy.eyebrow} ✦</p>
+        <h2 id="archive-volume-title">{copy.volumeTitle}</h2>
+        <p class="archive-volume-subtitle">{copy.subtitle}</p>
+        <p class="archive-volume-summary">{copy.summary}</p>
+
+        <dl class="archive-stats">
+          <div>
+            <dt>{copy.chapters}</dt>
+            <dd>{chapters.length}</dd>
+          </div>
+          <div>
+            <dt>{copy.pages}</dt>
+            <dd>{pageCount}</dd>
+          </div>
+          <div>
+            <dt>{copy.openings}</dt>
+            <dd>{openingCount}</dd>
+          </div>
+        </dl>
+
+        <a class="btn btn-dark archive-start" href={`/DeathEmpire/${isEs ? 'es/' : ''}lore/${chapters[0].slug}/`}>
+          {copy.start} <span aria-hidden="true">→</span>
+        </a>
+        <p class="archive-volume-note">
+          {completeChapterCount} {copy.fullText} · {chapters.length - completeChapterCount} {copy.archiveRecord}
+        </p>
+      </section>
+
+      <section class="archive-page archive-contents-page" aria-labelledby="archive-contents-title">
+        <header class="archive-contents-heading">
+          <div>
+            <p class="archive-contents-eyebrow">{copy.contentsEyebrow}</p>
+            <h3 id="archive-contents-title">{copy.contentsTitle}</h3>
+          </div>
+          <p class="archive-range">01—{String(chapters.length).padStart(2, '0')}</p>
+        </header>
+
+        <ol class="archive-chapters">
+          {chapterRows.map(({ chapter, pages }) => {
+            const chapterTitle = isEs ? chapter.titleEs : chapter.titleEn;
+            const chapterSubtitle = isEs ? chapter.subtitleEs : chapter.subtitleEn;
+            const chapterSummary = isEs ? chapter.summaryEs : chapter.summaryEn;
+            const period = isEs ? chapter.periodEs : chapter.periodEn;
+            const href = `/DeathEmpire/${isEs ? 'es/' : ''}lore/${chapter.slug}/`;
+            return (
+              <li class="archive-chapter">
+                <a class="archive-chapter-link" href={href} aria-label={`${copy.chapterLabel} ${chapter.order}: ${chapterTitle}`}>
+                  <span class="archive-chapter-number">{String(chapter.order).padStart(2, '0')}</span>
+                  <span class="archive-chapter-copy">
+                    <span class="archive-chapter-meta">{period} · {chapter.hasFullText ? copy.complete : copy.archiveRecord}</span>
+                    <span class="archive-chapter-title">{chapterTitle}</span>
+                    <span class="archive-chapter-subtitle">{chapterSubtitle}</span>
+                    <span class="archive-chapter-summary">{chapterSummary}</span>
+                  </span>
+                  <span class="archive-chapter-pages">
+                    <strong>{pages}</strong>
+                    <span>{copy.pages}</span>
+                    {chapter.readingMinutes && <span>≈ {chapter.readingMinutes} {copy.reading}</span>}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+
+        <footer class="archive-contents-footer">{copy.footer}</footer>
+      </section>
+    </article>
+  </section>
+
+  <footer class="archive-site-links">
+    <a href={isEs ? '/DeathEmpire/es/' : '/DeathEmpire/'}>{copy.home}</a>
+    <span aria-hidden="true">·</span>
+    <a href={isEs ? '/DeathEmpire/es/world/' : '/DeathEmpire/world/'}>{copy.world}</a>
+  </footer>
+</article>

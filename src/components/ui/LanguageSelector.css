@@ -1,0 +1,71 @@
+/* LanguageSelector.css - Estilos del selector de idioma */
+
+.lang-selector {
+  position: relative;
+  flex-shrink: 0;
+}
+.lang-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.65rem;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.lang-current::-webkit-details-marker {
+  display: none;
+}
+.lang-current:hover,
+.lang-selector[open] .lang-current {
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold);
+}
+.lang-globe {
+  color: var(--color-gold);
+}
+.lang-caret {
+  font-size: 0.7em;
+  color: var(--color-text-muted);
+}
+.lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.4rem);
+  min-width: 9rem;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-fixed);
+}
+.lang-menu a {
+  display: block;
+  padding: 0.45rem 0.7rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+.lang-menu a:hover,
+.lang-menu a:focus-visible {
+  background: rgba(201, 168, 107, 0.12);
+  color: var(--color-gold-bright);
+  text-decoration: none;
+}
+.lang-menu a.active {
+  color: var(--color-gold-bright);
+  font-weight: 600;
+}
