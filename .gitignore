@@ -31,6 +31,9 @@ playwright-report/
 # into dist/_astro during build (required for production).
 # The root fonts/ folder is a local Google Fonts collection, never commit it.
 /fonts/
+/public/fonts/
+/supabase/.temp/
+/.codegraph/
 
 # VS Code workspace settings
 .vs/
