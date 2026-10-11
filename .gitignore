@@ -27,9 +27,10 @@ pnpm-debug.log*
 test-results/
 playwright-report/
 
-# local fonts (use public/fonts for committed fonts)
-fonts/
-public/fonts/
+# Fonts under src/assets/fonts are committed so Vite bundles them
+# into dist/_astro during build (required for production).
+# The root fonts/ folder is a local Google Fonts collection, never commit it.
+/fonts/
 
 # VS Code workspace settings
 .vs/
