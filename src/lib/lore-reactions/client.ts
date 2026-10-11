@@ -39,7 +39,6 @@ export async function getReactionCounts(chapterSlug: string): Promise<Record<str
       headers: {
         'Accept': 'application/json',
         'apikey': import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '',
-        'Authorization': `Bearer ${import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? ''}`,
       },
     });
 
