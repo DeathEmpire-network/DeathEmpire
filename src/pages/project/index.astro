@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import SectionEyebrow from '../../components/ui/SectionEyebrow.astro';
+import OrnamentalDivider from '../../components/ui/OrnamentalDivider.astro';
+import StatusBadge from '../../components/ui/StatusBadge.astro';
 
 const title = 'The DeathEmpire Project';
 const description = 'DeathEmpire is an independent dark-fantasy project in active development, created and led by Kramsuiakari.';
@@ -8,10 +11,11 @@ const description = 'DeathEmpire is an independent dark-fantasy project in activ
 <BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/project/" esPath="/DeathEmpire/es/project/">
   <article>
     <header>
-      <p class="section-eyebrow">THE PROJECT</p>
+      <SectionEyebrow text="THE PROJECT" variant="project" />
       <h1>The DeathEmpire Project</h1>
       <p>DeathEmpire is an independent dark-fantasy project in active development, created and led by Kramsuiakari.</p>
       <p>It is being built with a long-term focus on worldbuilding, meaningful gameplay systems and a coherent player experience. Private by default. Open to meaningful collaboration.</p>
+      <p><StatusBadge status="development" label="In development" /></p>
     </header>
 
     <section>
@@ -31,6 +35,8 @@ const description = 'DeathEmpire is an independent dark-fantasy project in activ
         <a href="/DeathEmpire/chronicles/" class="btn btn-outline btn-sm">Follow the Chronicles</a>
       </p>
     </section>
+
+    <OrnamentalDivider />
 
     <section>
       <h2>For Technical Readers</h2>
