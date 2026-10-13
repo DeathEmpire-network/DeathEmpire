@@ -1,0 +1,6 @@
+/* OrnamentalDivider.css - Ajustes mínimos sobre .divider-ornate global.
+   No duplica el patrón; solo espaciado contextual opcional. */
+
+.ornamental-divider {
+  margin-block: var(--space-8);
+}

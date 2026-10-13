@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import SectionEyebrow from '../../../components/ui/SectionEyebrow.astro';
+import OrnamentalDivider from '../../../components/ui/OrnamentalDivider.astro';
+import StatusBadge from '../../../components/ui/StatusBadge.astro';
 import { factions } from '../../../data/factions';
 
 const title = 'El Mundo de DeathEmpire';
@@ -9,15 +12,18 @@ const description = 'Siete facciones documentadas se disputan territorio, recurs
 <BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/world/" esPath="/DeathEmpire/es/world/">
   <article>
     <header>
-      <p class="section-eyebrow">EL MUNDO</p>
+      <SectionEyebrow text="EL MUNDO" variant="world" />
       <h1>El Mundo de DeathEmpire</h1>
       <p>DeathEmpire no es una tierra esperando a ser conquistada. Es un mundo marcado que aún decide en qué se convertirá.</p>
+      <p><StatusBadge status="available" label="Canónico" /></p>
     </header>
 
     <section>
       <h2>Un Mundo en Fragmentos</h2>
       <p>El viejo Imperio sobrevive en ruinas. Sus símbolos perduran, pero su autoridad fue reclamada, retorcida o abandonada — mientras el Maná Salvaje mancha fronteras, ruinas y tierras en disputa.</p>
     </section>
+
+    <OrnamentalDivider />
 
     <section>
       <h2>Las Siete Facciones Canónicas</h2>
