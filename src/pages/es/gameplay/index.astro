@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import SectionEyebrow from '../../../components/ui/SectionEyebrow.astro';
+import OrnamentalDivider from '../../../components/ui/OrnamentalDivider.astro';
+import StatusBadge from '../../../components/ui/StatusBadge.astro';
 
 const title = 'Gameplay de DeathEmpire';
 const description = 'Forja tu legado: la lealtad, la preparación, el riesgo y la consecuencia definen quién serás en DeathEmpire.';
@@ -8,9 +11,10 @@ const description = 'Forja tu legado: la lealtad, la preparación, el riesgo y l
 <BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/gameplay/" esPath="/DeathEmpire/es/gameplay/">
   <article>
     <header>
-      <p class="section-eyebrow">GAMEPLAY</p>
+      <SectionEyebrow text="GAMEPLAY" variant="gameplay" />
       <h1>Forja tu legado</h1>
       <p>Tu lugar en DeathEmpire no lo decidirá un solo camino. Lo moldearán la lealtad, la preparación, el riesgo y la consecuencia — sirvas al orden, caces reliquias, estudies el Maná o te pierdas en la corrupción.</p>
+      <p><StatusBadge status="vision" label="Visión de diseño" /></p>
     </header>
 
     <section>
@@ -34,6 +38,8 @@ const description = 'Forja tu legado: la lealtad, la preparación, el riesgo y l
         </article>
       </div>
     </section>
+
+    <OrnamentalDivider />
 
     <section>
       <h2>Nota de Desarrollo</h2>
