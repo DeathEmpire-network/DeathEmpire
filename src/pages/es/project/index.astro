@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import SectionEyebrow from '../../../components/ui/SectionEyebrow.astro';
+import OrnamentalDivider from '../../../components/ui/OrnamentalDivider.astro';
+import StatusBadge from '../../../components/ui/StatusBadge.astro';
 
 const title = 'El Proyecto DeathEmpire';
 const description = 'DeathEmpire es un proyecto independiente de fantasía oscura en desarrollo activo, creado y dirigido por Kramsuiakari.';
@@ -8,10 +11,11 @@ const description = 'DeathEmpire es un proyecto independiente de fantasía oscur
 <BaseLayout title={title} description={description} lang="es" enPath="/DeathEmpire/project/" esPath="/DeathEmpire/es/project/">
   <article>
     <header>
-      <p class="section-eyebrow">EL PROYECTO</p>
+      <SectionEyebrow text="EL PROYECTO" variant="project" />
       <h1>El Proyecto DeathEmpire</h1>
       <p>DeathEmpire es un proyecto independiente de fantasía oscura en desarrollo activo, creado y dirigido por Kramsuiakari.</p>
       <p>Se construye con una visión a largo plazo centrada en el worldbuilding, los sistemas de juego significativos y una experiencia coherente. Privado por defecto. Abierto a colaboraciones significativas.</p>
+      <p><StatusBadge status="development" label="En desarrollo" /></p>
     </header>
 
     <section>
@@ -31,6 +35,8 @@ const description = 'DeathEmpire es un proyecto independiente de fantasía oscur
         <a href="/DeathEmpire/es/chronicles/" class="btn btn-outline btn-sm">Seguir las Crónicas</a>
       </p>
     </section>
+
+    <OrnamentalDivider />
 
     <section>
       <h2>Para Lectores Técnicos</h2>
