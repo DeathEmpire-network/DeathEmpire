@@ -1,0 +1,17 @@
+---
+/**
+ * OrnamentalDivider.astro - Divisor ornamental reutilizable.
+ * Reutiliza el patrón .divider-ornate global. Puramente decorativo.
+ * Sin JavaScript, sin imágenes ni assets.
+ */
+
+import './OrnamentalDivider.css';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`divider-ornate ornamental-divider ${className}`.trim()} aria-hidden="true"></div>

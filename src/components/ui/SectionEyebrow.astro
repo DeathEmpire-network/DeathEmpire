@@ -1,0 +1,19 @@
+---
+/**
+ * SectionEyebrow.astro - Marca de sección editorial por área.
+ * Sin JavaScript. Solo tokens CSS existentes, sin colores hardcodeados.
+ */
+
+export type SectionEyebrowVariant = 'world' | 'gameplay' | 'project' | 'lore';
+
+interface Props {
+  text: string;
+  variant?: SectionEyebrowVariant;
+}
+
+import './SectionEyebrow.css';
+
+const { text, variant = 'lore' } = Astro.props;
+---
+
+<p class={`section-eyebrow section-eyebrow--${variant}`}>{text}</p>

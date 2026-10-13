@@ -1,0 +1,18 @@
+/* SectionEyebrow.css - Marca de sección editorial por área.
+   Extiende .section-eyebrow global; solo cambia el acento por variante. */
+
+.section-eyebrow--lore {
+  color: var(--color-gold-muted);
+}
+
+.section-eyebrow--world {
+  color: var(--color-fire);
+}
+
+.section-eyebrow--gameplay {
+  color: var(--color-crimson-bright);
+}
+
+.section-eyebrow--project {
+  color: var(--color-magic-bright);
+}

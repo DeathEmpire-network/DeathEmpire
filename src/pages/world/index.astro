@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import SectionEyebrow from '../../components/ui/SectionEyebrow.astro';
+import OrnamentalDivider from '../../components/ui/OrnamentalDivider.astro';
+import StatusBadge from '../../components/ui/StatusBadge.astro';
 import { factions } from '../../data/factions';
 
 const title = 'The World of DeathEmpire';
@@ -63,15 +66,18 @@ const statusLabel: Record<string, string> = {
 <BaseLayout title={title} description={description} lang="en" enPath="/DeathEmpire/world/" esPath="/DeathEmpire/es/world/">
   <article>
     <header>
-      <p class="section-eyebrow">THE WORLD</p>
+      <SectionEyebrow text="THE WORLD" variant="world" />
       <h1>The World of DeathEmpire</h1>
       <p>DeathEmpire is not a land waiting to be conquered. It is a scarred world still deciding what it will become.</p>
+      <p><StatusBadge status="available" label="Canon" /></p>
     </header>
 
     <section>
       <h2>A World in Fragments</h2>
       <p>The old Empire survives in ruins. Its symbols endure, but its authority has been claimed, twisted or abandoned — while Wild Mana stains frontiers, ruins and disputed lands.</p>
     </section>
+
+    <OrnamentalDivider />
 
     <section>
       <h2>The Seven Canonical Factions</h2>

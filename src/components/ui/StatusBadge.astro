@@ -1,0 +1,25 @@
+---
+/**
+ * StatusBadge.astro - Estado editorial (visión / desarrollo / pruebas / disponible).
+ * Extiende la familia .status-* global. Sin JavaScript, sin iconos ni imágenes.
+ * El label lo proporciona la página (sin traducción interna).
+ */
+
+export type StatusBadgeStatus = 'vision' | 'development' | 'testing' | 'available';
+
+interface Props {
+  status: StatusBadgeStatus;
+  label: string;
+}
+
+const { status, label } = Astro.props;
+
+const statusClass: Record<StatusBadgeStatus, string> = {
+  vision: 'status-planned',
+  development: 'status-in-progress',
+  testing: 'status-dev',
+  available: 'status-completed',
+};
+---
+
+<span class={`status-badge ${statusClass[status]}`}>{label}</span>
