@@ -13,7 +13,7 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.117.3",
+    "@supabase/supabase-js": "^2.118.0",
     "astro": "^7.3.5",
     "supabase": "^2.120.0"
   },
